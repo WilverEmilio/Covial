@@ -15,7 +15,7 @@ namespace DataAccess.MySQL
         private string _contacto;
         private string _telefono;
         private string _direccion;
-        private bool _fecha_registro;
+        private DateTime _fecha_registro;
         private string _textobuscar;
 
         public int Contratista_id { get => _contratista_id; set => _contratista_id = value; }
@@ -23,7 +23,7 @@ namespace DataAccess.MySQL
         public string Contacto { get => _contacto; set => _contacto = value; }
         public string Telefono { get => _telefono; set => _telefono = value; }
         public string Direccion { get => _direccion; set => _direccion = value; }
-        public bool Fecha_registro { get => _fecha_registro; set => _fecha_registro = value; }
+        public DateTime Fecha_registro { get => _fecha_registro; set => _fecha_registro = value; }
         public string Textobuscar { get => _textobuscar; set => _textobuscar = value; }
 
         //Constructor vacio
@@ -32,7 +32,7 @@ namespace DataAccess.MySQL
         }
 
         //Constructor con parametros
-        public ContratistaDao(int contratista_id, string nombre_contratista, string contacto, string telefono, string direccion, bool fecha_registro)
+        public ContratistaDao(int contratista_id, string nombre_contratista, string contacto, string telefono, string direccion, DateTime fecha_registro)
         {
             this.Contratista_id = contratista_id;
             this.Nombre_contratista = nombre_contratista;

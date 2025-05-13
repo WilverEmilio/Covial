@@ -11,38 +11,38 @@ namespace DataAccess.MySQL
 {
     public class ProyectoDao : ConnectionToMySQL
     {
-        private int proyecto_id;
-        private int programa_id;
-        private int contratista_id;
-        private string nombre_proyecto;
-        private string descripcion;
-        private string ubicacion;
-        private decimal cantidad_estimada;
-        private decimal costo_unitario_estimado;
-        private decimal presupuesto_estimado;
-        private DateTime fecha_inicio_prevista;
-        private DateTime fecha_fin_prevista;
-        private string estado;
-        private DateTime fecha_creacion;
-        private int creado_por;
+        private int _proyecto_id;
+        private int _programa_id;
+        private int _contratista_id;
+        private string _nombre_proyecto;
+        private string _descripcion;
+        private string _ubicacion;
+        private decimal _cantidad_estimada;
+        private decimal _costo_unitario_estimado;
+        private decimal _presupuesto_estimado;
+        private DateTime _fecha_inicio_prevista;
+        private DateTime _fecha_fin_prevista;
+        private string _estado;
+        private DateTime _fecha_creacion;
+        private int _creado_por;
 
-        private string textobuscar;
+        private string _textobuscar;
 
-        public int Proyecto_id { get => proyecto_id; set => proyecto_id = value; }
-        public int Programa_id { get => programa_id; set => programa_id = value; }
-        public int Contratista_id { get => contratista_id; set => contratista_id = value; }
-        public string Nombre_proyecto { get => nombre_proyecto; set => nombre_proyecto = value; }
-        public string Descripcion { get => descripcion; set => descripcion = value; }
-        public string Ubicacion { get => ubicacion; set => ubicacion = value; }
-        public decimal Cantidad_estimada { get => cantidad_estimada; set => cantidad_estimada = value; }
-        public decimal Costo_unitario_estimado { get => costo_unitario_estimado; set => costo_unitario_estimado = value; }
-        public decimal Presupuesto_estimado { get => presupuesto_estimado; set => presupuesto_estimado = value; }
-        public DateTime Fecha_inicio_prevista { get => fecha_inicio_prevista; set => fecha_inicio_prevista = value; }
-        public DateTime Fecha_fin_prevista { get => fecha_fin_prevista; set => fecha_fin_prevista = value; }
-        public string Estado { get => estado; set => estado = value; }
-        public DateTime Fecha_creacion { get => fecha_creacion; set => fecha_creacion = value; }
-        public int Creado_por { get => creado_por; set => creado_por = value; }
-        public string Textobuscar { get => textobuscar; set => textobuscar = value; }
+        public int Proyecto_id { get => _proyecto_id; set => _proyecto_id = value; }
+        public int Programa_id { get => _programa_id; set => _programa_id = value; }
+        public int Contratista_id { get => _contratista_id; set => _contratista_id = value; }
+        public string Nombre_proyecto { get => _nombre_proyecto; set => _nombre_proyecto = value; }
+        public string Descripcion { get => _descripcion; set => _descripcion = value; }
+        public string Ubicacion { get => _ubicacion; set => _ubicacion = value; }
+        public decimal Cantidad_estimada { get => _cantidad_estimada; set => _cantidad_estimada = value; }
+        public decimal Costo_unitario_estimado { get => _costo_unitario_estimado; set => _costo_unitario_estimado = value; }
+        public decimal Presupuesto_estimado { get => _presupuesto_estimado; set => _presupuesto_estimado = value; }
+        public DateTime Fecha_inicio_prevista { get => _fecha_inicio_prevista; set => _fecha_inicio_prevista = value; }
+        public DateTime Fecha_fin_prevista { get => _fecha_fin_prevista; set => _fecha_fin_prevista = value; }
+        public string Estado { get => _estado; set => _estado = value; }
+        public DateTime Fecha_creacion { get => _fecha_creacion; set => _fecha_creacion = value; }
+        public int Creado_por { get => _creado_por; set => _creado_por = value; }
+        public string Textobuscar { get => _textobuscar; set => _textobuscar = value; }
 
         //Constructor vacio
         public ProyectoDao()

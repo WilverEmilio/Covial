@@ -16,7 +16,7 @@ namespace DataAccess.MySQL
         private string _contrasena;
         private string _rol;
         private string _nombre_completo;
-        private bool activo;
+        private bool _activo;
         private DateTime _fecha_creacion;
 
         private string _textobuscar;
@@ -26,7 +26,7 @@ namespace DataAccess.MySQL
         public string Contrasena { get => _contrasena; set => _contrasena = value; }
         public string Rol { get => _rol; set => _rol = value; }
         public string Nombre_completo { get => _nombre_completo; set => _nombre_completo = value; }
-        public bool Activo { get => activo; set => activo = value; }
+        public bool Activo { get => _activo; set => _activo = value; }
         public DateTime Fecha_creacion { get => _fecha_creacion; set => _fecha_creacion = value; }
         public string Textobuscar { get => _textobuscar; set => _textobuscar = value; }
 

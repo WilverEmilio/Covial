@@ -112,7 +112,7 @@ namespace DataAccess.MySQL
         }
 
         //Metodo para eliminar una orden de pago
-        public string Eliminar(int orden_pago_id)
+        public string Eliminar(OrdenPagoDao ordenPagoDao)
         {
             string respuesta = "";
             MySqlConnection sqlConnection = GetConnection();
@@ -121,7 +121,7 @@ namespace DataAccess.MySQL
                 sqlConnection.Open();
                 MySqlCommand sqlCommand = new MySqlCommand("sp_eliminar_orden_pago", sqlConnection);
                 sqlCommand.CommandType = CommandType.StoredProcedure;
-                sqlCommand.Parameters.AddWithValue("p_orden_pago_id", orden_pago_id);
+                sqlCommand.Parameters.AddWithValue("p_orden_pago_id", ordenPagoDao.Orden_pago_id);
                 respuesta = sqlCommand.ExecuteNonQuery() == 1 ? "OK" : "Error al eliminar la orden de pago";
             }
             catch (Exception ex)
@@ -188,7 +188,7 @@ namespace DataAccess.MySQL
         }
 
         //Metodo para mostrar el monto total de las ordenes de pago
-        public DataTable MostrarMontoTotal()
+        public DataTable MostrarMontoTotal(OrdenPagoDao ordenPagoDao)
         {
             DataTable dtResultado = new DataTable("orden_pago");
             MySqlConnection sqlConnection = GetConnection();
@@ -197,6 +197,7 @@ namespace DataAccess.MySQL
                 sqlConnection.Open();
                 MySqlCommand sqlCommand = new MySqlCommand("sp_mostrar_monto_total_orden_pago", sqlConnection);
                 sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("p_orden_pago_id", ordenPagoDao.Orden_pago_id);
                 MySqlDataAdapter sqlDataAdapter = new MySqlDataAdapter(sqlCommand);
                 sqlDataAdapter.Fill(dtResultado);
             }

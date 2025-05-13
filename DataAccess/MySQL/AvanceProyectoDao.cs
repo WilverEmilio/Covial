@@ -131,28 +131,27 @@ namespace DataAccess.MySQL
         }
 
         // Metodo para mostrar un avance de proyecto
-        public DataTable Mostrar(AvanceProyectoDao avanceProyectoDao)
+        public DataTable Mostrar()
         {
             DataTable dtResultado = new DataTable("avance_proyecto");
             MySqlConnection sqlConnection = GetConnection();
-            try
-            {
-                sqlConnection.Open();
-                MySqlCommand sqlCommand = new MySqlCommand("sp_mostrar_avance_proyecto", sqlConnection);
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                sqlCommand.Parameters.AddWithValue("p_textobuscar", avanceProyectoDao.Textobuscar);
-                MySqlDataAdapter sqlDataAdapter = new MySqlDataAdapter(sqlCommand);
-                sqlDataAdapter.Fill(dtResultado);
-            }
-            catch (Exception ex)
-            {
-                dtResultado = null;
-            }
-            finally
-            {
-                if (sqlConnection.State == ConnectionState.Open)
-                    sqlConnection.Close();
-            }
+                try
+                {
+                    sqlConnection.Open();
+                    MySqlCommand sqlCommand = new MySqlCommand("sp_mostrar_avance_proyecto", sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    MySqlDataAdapter sqlDataAdapter = new MySqlDataAdapter(sqlCommand);
+                    sqlDataAdapter.Fill(dtResultado);
+                }
+                catch (Exception ex)
+                {
+                    dtResultado = null;
+                }
+                finally
+                {
+                    if (sqlConnection.State == ConnectionState.Open)
+                        sqlConnection.Close();
+                }
             return dtResultado;
         }
 
