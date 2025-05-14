@@ -24,10 +24,10 @@ namespace Domain
         }
 
         //Metodo Editar que llama al metodo Editar de la clase UserDao de la capa de DataAccess
-        public static string Editar(int id_usuario, string nombre_usuario, string contrasena, string rol, string nombre_completo, bool activo, DateTime fecha_creacion)
+        public static string Editar(int usuario_id, string nombre_usuario, string contrasena, string rol, string nombre_completo, bool activo, DateTime fecha_creacion)
         {
             UserDao obj = new UserDao();
-            obj.Usuario_id = id_usuario;
+            obj.Usuario_id = usuario_id;
             obj.Nombre_usuario = nombre_usuario;
             obj.Contrasena = contrasena;
             obj.Rol = rol;

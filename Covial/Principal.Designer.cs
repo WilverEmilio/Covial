@@ -69,6 +69,7 @@
             menuStrip1.Size = new Size(1035, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
+            menuStrip1.ItemClicked += menuStrip1_ItemClicked;
             // 
             // covialToolStripMenuItem
             // 
@@ -80,14 +81,16 @@
             // salirToolStripMenuItem
             // 
             salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            salirToolStripMenuItem.Size = new Size(180, 22);
+            salirToolStripMenuItem.Size = new Size(143, 22);
             salirToolStripMenuItem.Text = "Salir";
+            salirToolStripMenuItem.Click += salirToolStripMenuItem_Click;
             // 
             // cerrarSesiónToolStripMenuItem
             // 
             cerrarSesiónToolStripMenuItem.Name = "cerrarSesiónToolStripMenuItem";
-            cerrarSesiónToolStripMenuItem.Size = new Size(180, 22);
+            cerrarSesiónToolStripMenuItem.Size = new Size(143, 22);
             cerrarSesiónToolStripMenuItem.Text = "Cerrar Sesión";
+            cerrarSesiónToolStripMenuItem.Click += cerrarSesiónToolStripMenuItem_Click;
             // 
             // mantenimientoToolStripMenuItem
             // 
@@ -99,25 +102,26 @@
             // usuariosToolStripMenuItem
             // 
             usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
-            usuariosToolStripMenuItem.Size = new Size(180, 22);
+            usuariosToolStripMenuItem.Size = new Size(173, 22);
             usuariosToolStripMenuItem.Text = "Usuarios";
+            usuariosToolStripMenuItem.Click += usuariosToolStripMenuItem_Click;
             // 
             // contratistasToolStripMenuItem
             // 
             contratistasToolStripMenuItem.Name = "contratistasToolStripMenuItem";
-            contratistasToolStripMenuItem.Size = new Size(180, 22);
+            contratistasToolStripMenuItem.Size = new Size(173, 22);
             contratistasToolStripMenuItem.Text = "Contratistas";
             // 
             // tiposDeProgramaToolStripMenuItem
             // 
             tiposDeProgramaToolStripMenuItem.Name = "tiposDeProgramaToolStripMenuItem";
-            tiposDeProgramaToolStripMenuItem.Size = new Size(180, 22);
+            tiposDeProgramaToolStripMenuItem.Size = new Size(173, 22);
             tiposDeProgramaToolStripMenuItem.Text = "Tipos de Programa";
             // 
             // planesAnualesToolStripMenuItem
             // 
             planesAnualesToolStripMenuItem.Name = "planesAnualesToolStripMenuItem";
-            planesAnualesToolStripMenuItem.Size = new Size(180, 22);
+            planesAnualesToolStripMenuItem.Size = new Size(173, 22);
             planesAnualesToolStripMenuItem.Text = "Planes Anuales";
             // 
             // gestiónDeProgramasYProyectosToolStripMenuItem
@@ -155,7 +159,7 @@
             // órdenesDePagoToolStripMenuItem
             // 
             órdenesDePagoToolStripMenuItem.Name = "órdenesDePagoToolStripMenuItem";
-            órdenesDePagoToolStripMenuItem.Size = new Size(180, 22);
+            órdenesDePagoToolStripMenuItem.Size = new Size(164, 22);
             órdenesDePagoToolStripMenuItem.Text = "Órdenes de Pago";
             // 
             // consultasReportesToolStripMenuItem
@@ -215,6 +219,7 @@
             toolStrip1.Size = new Size(1035, 25);
             toolStrip1.TabIndex = 1;
             toolStrip1.Text = "toolStrip1";
+            toolStrip1.ItemClicked += toolStrip1_ItemClicked;
             // 
             // toolStripButton1
             // 
@@ -251,6 +256,9 @@
             MainMenuStrip = menuStrip1;
             Name = "Principal";
             Text = "Principal";
+            WindowState = FormWindowState.Maximized;
+            Load += Principal_Load;
+            InputLanguageChanging += Principal_InputLanguageChanging;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             toolStrip1.ResumeLayout(false);

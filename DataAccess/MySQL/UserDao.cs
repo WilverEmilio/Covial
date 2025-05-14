@@ -244,7 +244,7 @@ namespace DataAccess.MySQL
                     //Crear el comando
                     using (MySqlCommand SqlCmd = new MySqlCommand(query, SqlCon))
                     {
-                        SqlCmd.Parameters.AddWithValue("@textobuscar", "%" + user.Textobuscar + "%");
+                        SqlCmd.Parameters.AddWithValue("@textobuscar", "%" + user.Nombre_usuario + "%");
                         //Crear el adaptador
                         MySqlDataAdapter SqlDat = new MySqlDataAdapter(SqlCmd);
                         //Llenar el DataTable
