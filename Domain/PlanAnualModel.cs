@@ -11,7 +11,7 @@ namespace Domain
     public class PlanAnualModel
     {
         //Metodo Insertar que llama al metodo Insertar de la clase PlanAnualDao de la capa de DataAccess
-        public static string Insertar(int año,DateTime fecha_creacion, string nombre_plan, string descripcion, int creado_por)
+        public static string Insertar(int año,string nombre_plan, string descripcion, DateTime fecha_creacion, int creado_por)
         {
             PlanAnualDao obj = new PlanAnualDao();
             obj.Año = año;

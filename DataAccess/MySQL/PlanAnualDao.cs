@@ -53,7 +53,7 @@ namespace DataAccess.MySQL
                 try
                 {
                     SqlCon.Open();
-                    string query = "INSERT INTO plan_anual " +
+                    string query = "INSERT INTO planesanuales " +
                         "(año, nombre_plan, descripcion, fecha_creacion, " +
                         "creado_por) VALUES " +
                         "(@año, @nombre_plan, @descripcion, @fecha_creacion, @creado_por)";
@@ -87,7 +87,7 @@ namespace DataAccess.MySQL
                 try
                 {
                     SqlCon.Open();
-                    string query = "UPDATE plan_anual SET " +
+                    string query = "UPDATE planesanuales SET " +
                         "año=@año, nombre_plan=@nombre_plan, descripcion=@descripcion, " +
                         "fecha_creacion=@fecha_creacion, creado_por=@creado_por " +
                         "WHERE plan_anual_id=@plan_anual_id";
@@ -121,7 +121,7 @@ namespace DataAccess.MySQL
                 try
                 {
                     SqlCon.Open();
-                    string query = "DELETE FROM plan_anual WHERE plan_anual_id=@plan_anual_id";
+                    string query = "DELETE FROM planesanuales WHERE plan_anual_id=@plan_anual_id";
                     using (MySqlCommand SqlCmd = new MySqlCommand(query, SqlCon))
                     {
                         SqlCmd.Parameters.AddWithValue("@plan_anual_id", plan.Plan_anual_id);
@@ -142,12 +142,14 @@ namespace DataAccess.MySQL
         //metodo todos los planes anuales
         public DataTable Mostrar()
         {
-            DataTable dt = new DataTable("plan_anual");
+            DataTable dt = new DataTable("planesanuales");
             using (MySqlConnection SqlCon = new MySqlConnection(connectionString))
                 try
                 {
                     SqlCon.Open();
-                    string query = "SELECT plan_anual_id, año, nombre_plan, descripcion, fecha_creacion, creado_por FROM plan_anual";
+                    string query = @"SELECT  pa.plan_anual_id, pa.año,   pa.nombre_plan, pa.descripcion,   pa.fecha_creacion,  u.usuario_id, u.nombre_usuario AS creado_por  FROM planesanuales pa  
+                            INNER JOIN usuarios u ON pa.creado_por = u.usuario_id;
+                        ";
                     using (MySqlCommand SqlCmd = new MySqlCommand(query, SqlCon))
                     {
                         MySqlDataAdapter SqlDat = new MySqlDataAdapter(SqlCmd);
@@ -168,12 +170,12 @@ namespace DataAccess.MySQL
         //metodo mostrar plan anual por año
         public DataTable MostrarPlanAnualPorAño(PlanAnualDao plan)
         {
-            DataTable dt = new DataTable("plan_anual");
+            DataTable dt = new DataTable("planesanuales");
             using (MySqlConnection SqlCon = new MySqlConnection(connectionString))
                 try
                 {
                     SqlCon.Open();
-                    string query = "SELECT plan_anual_id, año, nombre_plan, descripcion, fecha_creacion, creado_por FROM plan_anual WHERE año=@año";
+                    string query = "SELECT plan_anual_id, año, nombre_plan, descripcion, fecha_creacion, creado_por FROM planesanuales WHERE año=@año";
                     using (MySqlCommand SqlCmd = new MySqlCommand(query, SqlCon))
                     {
                         SqlCmd.Parameters.AddWithValue("@año", plan.Año);
@@ -195,12 +197,12 @@ namespace DataAccess.MySQL
         //metodo buscar plan anual por nombre
         public DataTable Buscar(PlanAnualDao plan)
         {
-            DataTable dt = new DataTable("plan_anual");
+            DataTable dt = new DataTable("planesanuales");
             using (MySqlConnection SqlCon = new MySqlConnection(connectionString))
                 try
                 {
                     SqlCon.Open();
-                    string query = "SELECT plan_anual_id, año, nombre_plan, descripcion, fecha_creacion, creado_por FROM plan_anual WHERE nombre_plan LIKE @textobuscar";
+                    string query = "SELECT plan_anual_id, año, nombre_plan, descripcion, fecha_creacion, creado_por FROM planesanuales WHERE nombre_plan LIKE @textobuscar";
                     using (MySqlCommand SqlCmd = new MySqlCommand(query, SqlCon))
                     {
                         SqlCmd.Parameters.AddWithValue("@textobuscar", "%" + plan.Textobuscar + "%");

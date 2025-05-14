@@ -76,5 +76,16 @@ namespace Presentation
             frm.MdiParent = this;
             frm.Show();
         }
+
+        private void planesAnualesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Ingreso_Plan_Anual frm = Ingreso_Plan_Anual.GetInstancia();
+            frm.UsuarioId = this.usuario_id;
+            frm.NombreUsuario = this.nombre_usuario;
+            frm.Rol = this.rol;
+            frm.MdiParent = this;
+            frm.Show();
+        }
+        
     }
 }
