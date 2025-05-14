@@ -1,6 +1,6 @@
 ﻿namespace Presentation
 {
-    partial class Ingresar_Usuario
+    partial class Ingreso_Contratista
     {
         /// <summary>
         /// Required designer variable.
@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            panel_barra = new Panel();
             lblTitulo = new Label();
+            panel_barra = new Panel();
             groupBuscar = new GroupBox();
             textBuscar = new TextBox();
             lblBuscar = new Label();
@@ -40,15 +40,15 @@
             datosListar = new DataGridView();
             Eliminar = new DataGridViewCheckBoxColumn();
             groupDatos = new GroupBox();
-            textIdUsuario = new TextBox();
-            textContraseña = new TextBox();
-            textUsuario = new TextBox();
+            textTelefono = new TextBox();
+            textIdContratista = new TextBox();
+            textDireccion = new TextBox();
+            textContacto = new TextBox();
             textNombre = new TextBox();
-            comboRol = new ComboBox();
             lblNombre = new Label();
-            lblRol = new Label();
-            lblContrasena = new Label();
-            lblUsuario = new Label();
+            lblTelefono = new Label();
+            lblDireccion = new Label();
+            lblContacto = new Label();
             groupBotones = new GroupBox();
             btnEliminar = new Button();
             btnCancelar = new Button();
@@ -66,24 +66,24 @@
             ((System.ComponentModel.ISupportInitialize)errorIcon).BeginInit();
             SuspendLayout();
             // 
-            // panel_barra
-            // 
-            panel_barra.BackColor = Color.FromArgb(48, 157, 228);
-            panel_barra.Controls.Add(lblTitulo);
-            panel_barra.Location = new Point(0, 1);
-            panel_barra.Name = "panel_barra";
-            panel_barra.Size = new Size(800, 39);
-            panel_barra.TabIndex = 0;
-            // 
             // lblTitulo
             // 
             lblTitulo.AutoSize = true;
             lblTitulo.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold);
             lblTitulo.Location = new Point(12, 8);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(151, 18);
+            lblTitulo.Size = new Size(175, 18);
             lblTitulo.TabIndex = 0;
-            lblTitulo.Text = "Ingreso De Usuarios";
+            lblTitulo.Text = "Ingreso De Contratistas";
+            // 
+            // panel_barra
+            // 
+            panel_barra.BackColor = Color.FromArgb(48, 157, 228);
+            panel_barra.Controls.Add(lblTitulo);
+            panel_barra.Location = new Point(1, 1);
+            panel_barra.Name = "panel_barra";
+            panel_barra.Size = new Size(800, 39);
+            panel_barra.TabIndex = 1;
             // 
             // groupBuscar
             // 
@@ -92,7 +92,7 @@
             groupBuscar.Location = new Point(12, 46);
             groupBuscar.Name = "groupBuscar";
             groupBuscar.Size = new Size(776, 55);
-            groupBuscar.TabIndex = 1;
+            groupBuscar.TabIndex = 2;
             groupBuscar.TabStop = false;
             // 
             // textBuscar
@@ -122,7 +122,7 @@
             panelTabla.Location = new Point(12, 107);
             panelTabla.Name = "panelTabla";
             panelTabla.Size = new Size(776, 208);
-            panelTabla.TabIndex = 2;
+            panelTabla.TabIndex = 3;
             // 
             // lblTotal
             // 
@@ -169,45 +169,53 @@
             // 
             // groupDatos
             // 
-            groupDatos.Controls.Add(textIdUsuario);
-            groupDatos.Controls.Add(textContraseña);
-            groupDatos.Controls.Add(textUsuario);
+            groupDatos.Controls.Add(textTelefono);
+            groupDatos.Controls.Add(textIdContratista);
+            groupDatos.Controls.Add(textDireccion);
+            groupDatos.Controls.Add(textContacto);
             groupDatos.Controls.Add(textNombre);
-            groupDatos.Controls.Add(comboRol);
             groupDatos.Controls.Add(lblNombre);
-            groupDatos.Controls.Add(lblRol);
-            groupDatos.Controls.Add(lblContrasena);
-            groupDatos.Controls.Add(lblUsuario);
-            groupDatos.Location = new Point(12, 321);
+            groupDatos.Controls.Add(lblTelefono);
+            groupDatos.Controls.Add(lblDireccion);
+            groupDatos.Controls.Add(lblContacto);
+            groupDatos.Location = new Point(12, 330);
             groupDatos.Name = "groupDatos";
             groupDatos.Size = new Size(776, 110);
-            groupDatos.TabIndex = 3;
+            groupDatos.TabIndex = 9;
             groupDatos.TabStop = false;
             // 
-            // textIdUsuario
+            // textTelefono
             // 
-            textIdUsuario.Font = new Font("Century Gothic", 9.75F);
-            textIdUsuario.Location = new Point(359, 22);
-            textIdUsuario.Name = "textIdUsuario";
-            textIdUsuario.Size = new Size(10, 23);
-            textIdUsuario.TabIndex = 8;
-            textIdUsuario.Visible = false;
+            textTelefono.Font = new Font("Century Gothic", 9.75F);
+            textTelefono.Location = new Point(118, 66);
+            textTelefono.Name = "textTelefono";
+            textTelefono.Size = new Size(215, 23);
+            textTelefono.TabIndex = 9;
             // 
-            // textContraseña
+            // textIdContratista
             // 
-            textContraseña.Font = new Font("Century Gothic", 9.75F);
-            textContraseña.Location = new Point(491, 66);
-            textContraseña.Name = "textContraseña";
-            textContraseña.Size = new Size(215, 23);
-            textContraseña.TabIndex = 7;
+            textIdContratista.Font = new Font("Century Gothic", 9.75F);
+            textIdContratista.Location = new Point(359, 22);
+            textIdContratista.Name = "textIdContratista";
+            textIdContratista.Size = new Size(10, 23);
+            textIdContratista.TabIndex = 8;
+            textIdContratista.Visible = false;
             // 
-            // textUsuario
+            // textDireccion
             // 
-            textUsuario.Font = new Font("Century Gothic", 9.75F);
-            textUsuario.Location = new Point(491, 27);
-            textUsuario.Name = "textUsuario";
-            textUsuario.Size = new Size(215, 23);
-            textUsuario.TabIndex = 6;
+            textDireccion.Font = new Font("Century Gothic", 9.75F);
+            textDireccion.Location = new Point(491, 66);
+            textDireccion.Name = "textDireccion";
+            textDireccion.Size = new Size(215, 23);
+            textDireccion.TabIndex = 7;
+            // 
+            // textContacto
+            // 
+            textContacto.Font = new Font("Century Gothic", 9.75F);
+            textContacto.Location = new Point(491, 27);
+            textContacto.Name = "textContacto";
+            textContacto.Size = new Size(215, 23);
+            textContacto.TabIndex = 6;
             // 
             // textNombre
             // 
@@ -216,15 +224,6 @@
             textNombre.Name = "textNombre";
             textNombre.Size = new Size(211, 23);
             textNombre.TabIndex = 5;
-            // 
-            // comboRol
-            // 
-            comboRol.Font = new Font("Century Gothic", 9.75F);
-            comboRol.FormattingEnabled = true;
-            comboRol.Location = new Point(118, 61);
-            comboRol.Name = "comboRol";
-            comboRol.Size = new Size(211, 25);
-            comboRol.TabIndex = 4;
             // 
             // lblNombre
             // 
@@ -236,35 +235,35 @@
             lblNombre.TabIndex = 3;
             lblNombre.Text = "Nombre";
             // 
-            // lblRol
+            // lblTelefono
             // 
-            lblRol.AutoSize = true;
-            lblRol.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold);
-            lblRol.Location = new Point(44, 66);
-            lblRol.Name = "lblRol";
-            lblRol.Size = new Size(31, 18);
-            lblRol.TabIndex = 2;
-            lblRol.Text = "Rol";
+            lblTelefono.AutoSize = true;
+            lblTelefono.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold);
+            lblTelefono.Location = new Point(44, 66);
+            lblTelefono.Name = "lblTelefono";
+            lblTelefono.Size = new Size(75, 18);
+            lblTelefono.TabIndex = 2;
+            lblTelefono.Text = "Teléfono ";
             // 
-            // lblContrasena
+            // lblDireccion
             // 
-            lblContrasena.AutoSize = true;
-            lblContrasena.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold);
-            lblContrasena.Location = new Point(392, 71);
-            lblContrasena.Name = "lblContrasena";
-            lblContrasena.Size = new Size(93, 18);
-            lblContrasena.TabIndex = 1;
-            lblContrasena.Text = "Contraseña";
+            lblDireccion.AutoSize = true;
+            lblDireccion.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold);
+            lblDireccion.Location = new Point(392, 71);
+            lblDireccion.Name = "lblDireccion";
+            lblDireccion.Size = new Size(81, 18);
+            lblDireccion.TabIndex = 1;
+            lblDireccion.Text = "Dirección";
             // 
-            // lblUsuario
+            // lblContacto
             // 
-            lblUsuario.AutoSize = true;
-            lblUsuario.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold);
-            lblUsuario.Location = new Point(392, 27);
-            lblUsuario.Name = "lblUsuario";
-            lblUsuario.Size = new Size(62, 18);
-            lblUsuario.TabIndex = 0;
-            lblUsuario.Text = "Usuario";
+            lblContacto.AutoSize = true;
+            lblContacto.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold);
+            lblContacto.Location = new Point(392, 27);
+            lblContacto.Name = "lblContacto";
+            lblContacto.Size = new Size(77, 18);
+            lblContacto.TabIndex = 0;
+            lblContacto.Text = "Contacto";
             // 
             // groupBotones
             // 
@@ -273,10 +272,10 @@
             groupBotones.Controls.Add(btnEditar);
             groupBotones.Controls.Add(btnGuardar);
             groupBotones.Controls.Add(btnNuevo);
-            groupBotones.Location = new Point(12, 437);
+            groupBotones.Location = new Point(12, 446);
             groupBotones.Name = "groupBotones";
             groupBotones.Size = new Size(776, 100);
-            groupBotones.TabIndex = 4;
+            groupBotones.TabIndex = 10;
             groupBotones.TabStop = false;
             // 
             // btnEliminar
@@ -338,19 +337,19 @@
             // 
             errorIcon.ContainerControl = this;
             // 
-            // Ingresar_Usuario
+            // Ingreso_Contratista
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 553);
+            ClientSize = new Size(800, 598);
             Controls.Add(groupBotones);
             Controls.Add(groupDatos);
             Controls.Add(panelTabla);
             Controls.Add(groupBuscar);
             Controls.Add(panel_barra);
-            Name = "Ingresar_Usuario";
-            Text = "Ingresar_Usuario";
-            Load += Ingresar_Usuario_Load;
+            Name = "Ingreso_Contratista";
+            Text = "Ingreso_Contratista";
+            Load += Ingreso_Contratista_Load;
             panel_barra.ResumeLayout(false);
             panel_barra.PerformLayout();
             groupBuscar.ResumeLayout(false);
@@ -367,23 +366,26 @@
 
         #endregion
 
-        private Panel panel_barra;
         private Label lblTitulo;
+        private Panel panel_barra;
         private GroupBox groupBuscar;
-        private Label lblBuscar;
         private TextBox textBuscar;
+        private Label lblBuscar;
         private Panel panelTabla;
+        private Label lblTotal;
         private CheckBox checkEliminar;
         private DataGridView datosListar;
+        private DataGridViewCheckBoxColumn Eliminar;
         private GroupBox groupDatos;
-        private TextBox textContraseña;
-        private TextBox textUsuario;
+        private TextBox textTelefono;
+        private TextBox textIdContratista;
+        private TextBox textDireccion;
+        private TextBox textContacto;
         private TextBox textNombre;
-        private ComboBox comboRol;
         private Label lblNombre;
-        private Label lblRol;
-        private Label lblContrasena;
-        private Label lblUsuario;
+        private Label lblTelefono;
+        private Label lblDireccion;
+        private Label lblContacto;
         private GroupBox groupBotones;
         private Button btnEliminar;
         private Button btnCancelar;
@@ -392,8 +394,5 @@
         private Button btnNuevo;
         private ToolTip ttMensaje;
         private ErrorProvider errorIcon;
-        private Label lblTotal;
-        private TextBox textIdUsuario;
-        private DataGridViewCheckBoxColumn Eliminar;
     }
 }

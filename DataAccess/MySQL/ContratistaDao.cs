@@ -50,7 +50,7 @@ namespace DataAccess.MySQL
                 try
                 {
                     SqlCon.Open();
-                    string query = "INSERT INTO contratista " +
+                    string query = "INSERT INTO contratistas " +
                         "(nombre_contratista, contacto, telefono, direccion, fecha_registro) VALUES " +
                         "(@nombre_contratista, @contacto, @telefono, @direccion, @fecha_registro)";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
@@ -76,7 +76,7 @@ namespace DataAccess.MySQL
                 try
                 {
                     SqlCon.Open();
-                    string query = "UPDATE contratista SET " +
+                    string query = "UPDATE contratistas SET " +
                         "nombre_contratista=@nombre_contratista, contacto=@contacto, telefono=@telefono, direccion=@direccion " +
                         "WHERE contratista_id=@contratista_id";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
@@ -102,7 +102,7 @@ namespace DataAccess.MySQL
                 try
                 {
                     SqlCon.Open();
-                    string query = "DELETE FROM contratista WHERE contratista_id=@contratista_id";
+                    string query = "DELETE FROM contratistas WHERE contratista_id=@contratista_id";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
                     cmd.Parameters.AddWithValue("@contratista_id", contratista.Contratista_id);
                     rpta = cmd.ExecuteNonQuery() == 1 ? "OK" : "Error al eliminar el registro";
@@ -117,12 +117,12 @@ namespace DataAccess.MySQL
         //metodo para mostrar todos los contratistas
         public DataTable Mostrar()
         {
-            DataTable dt = new DataTable("contratista");
+            DataTable dt = new DataTable("contratistas");
             using (MySqlConnection SqlCon = new MySqlConnection(connectionString))
                 try
                 {
                     SqlCon.Open();
-                    string query = "SELECT * FROM contratista";
+                    string query = "SELECT * FROM contratistas";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                     da.Fill(dt);
@@ -137,12 +137,12 @@ namespace DataAccess.MySQL
         //metodo para buscar un contratista por nombre
         public DataTable BuscarNombre(ContratistaDao contratista)
         {
-            DataTable dt = new DataTable("contratista");
+            DataTable dt = new DataTable("contratistas");
             using (MySqlConnection SqlCon = new MySqlConnection(connectionString))
                 try
                 {
                     SqlCon.Open();
-                    string query = "SELECT * FROM contratista WHERE nombre_contratista LIKE @textobuscar";
+                    string query = "SELECT * FROM contratistas WHERE nombre_contratista LIKE @textobuscar";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
                     cmd.Parameters.AddWithValue("@textobuscar", "%" + contratista.Textobuscar + "%");
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
@@ -158,12 +158,12 @@ namespace DataAccess.MySQL
         //metodo para buscar un contratista por contacto
         public DataTable BuscarContacto(ContratistaDao contratista)
         {
-            DataTable dt = new DataTable("contratista");
+            DataTable dt = new DataTable("contratistas");
             using (MySqlConnection SqlCon = new MySqlConnection(connectionString))
                 try
                 {
                     SqlCon.Open();
-                    string query = "SELECT * FROM contratista WHERE contacto LIKE @textobuscar";
+                    string query = "SELECT * FROM contratistas WHERE contacto LIKE @textobuscar";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
                     cmd.Parameters.AddWithValue("@textobuscar", "%" + contratista.Textobuscar + "%");
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);

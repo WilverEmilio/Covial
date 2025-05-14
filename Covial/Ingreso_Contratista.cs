@@ -11,65 +11,63 @@ using Domain;
 
 namespace Presentation
 {
-    public partial class Ingresar_Usuario : Form
+    public partial class Ingreso_Contratista : Form
     {
         private bool IsNuevo = false;
         private bool IsEditar = false;
 
-        private static Ingresar_Usuario _Instancia;
+        private static Ingreso_Contratista _Instancia;
 
-        public static Ingresar_Usuario GetInstancia()
+        public static Ingreso_Contratista GetInstancia()
         {
             if (_Instancia == null || _Instancia.IsDisposed)
             {
-                _Instancia = new Ingresar_Usuario();
+                _Instancia = new Ingreso_Contratista();
             }
             else if (_Instancia.Created == false)
             {
-                _Instancia = new Ingresar_Usuario();
+                _Instancia = new Ingreso_Contratista();
             }
             return _Instancia;
         }
-        public Ingresar_Usuario()
+
+        public Ingreso_Contratista()
         {
             InitializeComponent();
 
-            this.ttMensaje.SetToolTip(this.textNombre, "Ingrese el nombre completo");
-            this.ttMensaje.SetToolTip(this.textUsuario, "Ingrese el nombre de usuario");
-            this.ttMensaje.SetToolTip(this.textContraseña, "Ingrese la contraseña");
-            this.ttMensaje.SetToolTip(this.comboRol, "Seleccione el rol del usuario");
-
-            this.textContraseña.PasswordChar = '*';
+            this.ttMensaje.SetToolTip(this.textNombre, "Ingrese el nombre del contratista");
+            this.ttMensaje.SetToolTip(this.textContacto, "Ingrese el nombre del contacto");
+            this.ttMensaje.SetToolTip(this.textTelefono, "Ingrese el telefono del contacto");
+            this.ttMensaje.SetToolTip(this.textDireccion, "Ingrese la direccion del contratista");
         }
 
         private void MensajeOk(string mensaje)
         {
-            MessageBox.Show(mensaje, "Sistema de Gestión de Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(mensaje, "Sistema de Gestión de Contratistas", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void MensajeError(string mensaje)
         {
-            MessageBox.Show(mensaje, "Sistema de Gestión de Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(mensaje, "Sistema de Gestión de Contratistas", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        //Metodo limpiar
         private void Limpiar()
         {
             this.textNombre.Text = string.Empty;
-            this.textUsuario.Text = string.Empty;
-            this.textContraseña.Text = string.Empty;
-            this.comboRol.Text = string.Empty;
+            this.textContacto.Text = string.Empty;
+            this.textTelefono.Text = string.Empty;
+            this.textDireccion.Text = string.Empty;
+            this.textIdContratista.Text = string.Empty;
         }
 
         private void Habilitar(bool valor)
         {
             this.textNombre.ReadOnly = !valor;
-            this.textUsuario.ReadOnly = !valor;
-            this.textContraseña.ReadOnly = !valor;
-            this.comboRol.Enabled = valor;
+            this.textContacto.ReadOnly = !valor;
+            this.textTelefono.ReadOnly = !valor;
+            this.textDireccion.ReadOnly = !valor;
         }
 
-        //Habilitar los botones
         private void Botones()
         {
             if (this.IsNuevo || this.IsEditar)
@@ -93,29 +91,27 @@ namespace Presentation
 
         }
 
-        //Metodo para oculatr columnas
-        private void OculatrColumnas()
+        private void OcultarColumnas()
         {
             this.datosListar.Columns[0].Visible = false;
-            this.datosListar.Columns[1].Visible = false;
+            //this.datosListar.Columns[1].Visible = false;
         }
 
-        //Metodo Mostrar
         private void Mostrar()
         {
-            this.datosListar.DataSource = UserModel.Mostrar();
-            this.OculatrColumnas();
-            lblTotal.Text = "Total de Registros: " + Convert.ToString(datosListar.Rows.Count);
+            this.datosListar.DataSource = ContratistaModel.Mostrar();
+            this.OcultarColumnas();
+            lblTotal.Text = "Total de registros: " + Convert.ToString(datosListar.Rows.Count);
         }
 
         private void Buscar()
         {
-            this.datosListar.DataSource = UserModel.BuscarNombre(this.textBuscar.Text);
-            this.OculatrColumnas();
-            lblTotal.Text = "Total de Registros: " + Convert.ToString(datosListar.Rows.Count);
+            this.datosListar.DataSource = ContratistaModel.BuscarNombre(this.textBuscar.Text);
+            this.OcultarColumnas();
+            lblTotal.Text = "Total de registros: " + Convert.ToString(datosListar.Rows.Count);
         }
 
-        private void Ingresar_Usuario_Load(object sender, EventArgs e)
+        private void Ingreso_Contratista_Load(object sender, EventArgs e)
         {
             this.Mostrar();
             this.Habilitar(false);
@@ -135,7 +131,7 @@ namespace Presentation
             this.Limpiar();
             this.Habilitar(true);
 
-            this.textUsuario.Focus();
+            this.textNombre.Focus();
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -143,22 +139,23 @@ namespace Presentation
             try
             {
                 string rpta = "";
-                if (this.textUsuario.Text == string.Empty || this.textContraseña.Text == string.Empty || this.comboRol.Text == string.Empty)
+                if (this.textNombre.Text == string.Empty || this.textContacto.Text == string.Empty || this.textTelefono.Text == string.Empty || this.textDireccion.Text == string.Empty)
                 {
                     MensajeError("Faltan datos por ingresar");
-                    errorIcon.SetError(textUsuario, "Ingrese un nombre de usuario");
-                    errorIcon.SetError(textContraseña, "Ingrese una contraseña");
-                    errorIcon.SetError(comboRol, "Seleccione un rol");
+                    errorIcon.SetError(textNombre, "Ingrese un nombre");
+                    errorIcon.SetError(textContacto, "Ingrese un contacto");
+                    errorIcon.SetError(textTelefono, "Ingrese un telefono");
+                    errorIcon.SetError(textDireccion, "Ingrese una direccion");
                 }
                 else
                 {
                     if (this.IsNuevo)
                     {
-                        rpta = UserModel.Insertar(this.textUsuario.Text.Trim().ToUpper(), this.textContraseña.Text.Trim(), this.comboRol.Text, this.textNombre.Text.Trim(), true, DateTime.Now);
+                        rpta = ContratistaModel.Insertar(this.textNombre.Text.Trim().ToUpper(), this.textContacto.Text.Trim().ToUpper(), this.textTelefono.Text.Trim(), this.textDireccion.Text.Trim(), DateTime.Now);
                     }
                     else
                     {
-                        rpta = UserModel.Editar(Convert.ToInt32(this.datosListar.CurrentRow.Cells["usuario_id"].Value), this.textUsuario.Text.Trim().ToUpper(), this.textContraseña.Text.Trim(), this.comboRol.Text, this.textNombre.Text.Trim(), true, DateTime.Now);
+                        rpta = ContratistaModel.Editar(Convert.ToInt32(this.textIdContratista.Text), this.textNombre.Text.Trim().ToUpper(), this.textContacto.Text.Trim().ToUpper(), this.textTelefono.Text.Trim(), this.textDireccion.Text.Trim(), DateTime.Now);
                     }
                     if (rpta.Equals("OK"))
                     {
@@ -175,7 +172,7 @@ namespace Presentation
                     {
                         this.MensajeError(rpta);
                     }
-                                        this.IsNuevo = false;
+                    this.IsNuevo = false;
                     this.IsEditar = false;
                     this.Botones();
                     this.Limpiar();
@@ -190,15 +187,16 @@ namespace Presentation
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            if (!this.textIdUsuario.Text.Equals(""))
+            if (!this.textIdContratista.Text.Equals(""))
             {
                 this.IsEditar = true;
+                this.IsNuevo = false;
                 this.Botones();
                 this.Habilitar(true);
             }
             else
             {
-                this.MensajeError("Seleccione el registro a editar");
+                this.MensajeError("Seleccione el registro a modificar");
             }
         }
 
@@ -214,24 +212,58 @@ namespace Presentation
 
         private void datosListar_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == datosListar.Columns["Eliminar"].Index)
+            if (e.ColumnIndex == this.datosListar.Columns["Eliminar"].Index)
             {
-                DataGridViewCheckBoxCell ChEliminar =
-                    (DataGridViewCheckBoxCell)datosListar.Rows[e.RowIndex].Cells["Eliminar"];
-
-                ChEliminar.Value = !(Convert.ToBoolean(ChEliminar.Value));
+                DataGridViewCheckBoxCell chkEliminar = (DataGridViewCheckBoxCell)this.datosListar.Rows[e.RowIndex].Cells["Eliminar"];
+                chkEliminar.Value = !Convert.ToBoolean(chkEliminar.Value);
             }
         }
 
         private void datosListar_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            this.textIdUsuario.Text = Convert.ToString(this.datosListar.CurrentRow.Cells["usuario_id"].Value);
-            this.textUsuario.Text = Convert.ToString(this.datosListar.CurrentRow.Cells["nombre_usuario"].Value);
-            this.textContraseña.Text = Convert.ToString(this.datosListar.CurrentRow.Cells["contrasena"].Value);
-            this.comboRol.Text = Convert.ToString(this.datosListar.CurrentRow.Cells["rol"].Value);
-            this.textNombre.Text = Convert.ToString(this.datosListar.CurrentRow.Cells["nombre_completo"].Value);
+            this.textIdContratista.Text = Convert.ToString(this.datosListar.CurrentRow.Cells["contratista_id"].Value);
+            this.textNombre.Text = Convert.ToString(this.datosListar.CurrentRow.Cells["nombre_contratista"].Value);
+            this.textContacto.Text = Convert.ToString(this.datosListar.CurrentRow.Cells["contacto"].Value);
+            this.textTelefono.Text = Convert.ToString(this.datosListar.CurrentRow.Cells["telefono"].Value);
+            this.textDireccion.Text = Convert.ToString(this.datosListar.CurrentRow.Cells["direccion"].Value);
 
+        }
 
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult opcion;
+                opcion = MessageBox.Show("¿Realmente desea eliminar los registros seleccionados?", "Sistema de Gestión de Contratistas", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+                if (opcion == DialogResult.OK)
+                {
+                    int id;
+                    string rpta = "";
+                    foreach (DataGridViewRow row in datosListar.Rows)
+                    {
+                        if (Convert.ToBoolean(row.Cells[0].Value))
+                        {
+                            id = Convert.ToInt32(row.Cells[1].Value);
+                            rpta = ContratistaModel.Eliminar(id);
+                            if (rpta.Equals("OK"))
+                            {
+                                this.MensajeOk("Se eliminó correctamente el registro");
+                            }
+                            else
+                            {
+                                this.MensajeError(rpta);
+                            }
+                        }
+                    }
+                    this.Mostrar();
+                    this.checkEliminar.Checked = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + ex.StackTrace);
+            }
         }
 
         private void checkEliminar_CheckedChanged(object sender, EventArgs e)
@@ -243,44 +275,6 @@ namespace Presentation
             else
             {
                 this.datosListar.Columns[0].Visible = false;
-            }
-        }
-
-        private void btnEliminar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                DialogResult Opcion;
-                Opcion = MessageBox.Show("¿Realmente desea eliminar los registros?", "Sistema de Gestión de Usuarios", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-
-                if (Opcion == DialogResult.OK)
-                {
-                    string id;
-                    string Rpta = "";
-
-                    foreach (DataGridViewRow row in datosListar.Rows)
-                    {
-                        if (Convert.ToBoolean(row.Cells[0].Value))
-                        {
-                            id = Convert.ToString(row.Cells[1].Value);
-                            Rpta = UserModel.Eliminar(Convert.ToInt32(id));
-                            if (Rpta.Equals("OK"))
-                            {
-                                this.MensajeOk("Se eliminó correctamente el registro");
-                            }
-                            else
-                            {
-                                this.MensajeError(Rpta);
-                            }
-                        }
-                    }
-                    this.Mostrar();
-                    this.checkEliminar.Checked = false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message + ex.StackTrace);
             }
         }
     }

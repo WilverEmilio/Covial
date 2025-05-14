@@ -62,5 +62,19 @@ namespace Presentation
         {
 
         }
+
+        private void contratistasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Ingreso_Contratista frm = Ingreso_Contratista.GetInstancia();
+            frm.MdiParent = this;
+            frm.Show();
+        }
+
+        private void tiposDeProgramaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Ingreso_Tipo_Programa frm = Ingreso_Tipo_Programa.GetInstancia();
+            frm.MdiParent = this;
+            frm.Show();
+        }
     }
 }

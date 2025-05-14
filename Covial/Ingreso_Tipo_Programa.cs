@@ -11,35 +11,30 @@ using Domain;
 
 namespace Presentation
 {
-    public partial class Ingresar_Usuario : Form
+    public partial class Ingreso_Tipo_Programa : Form
     {
         private bool IsNuevo = false;
         private bool IsEditar = false;
 
-        private static Ingresar_Usuario _Instancia;
+        private static Ingreso_Tipo_Programa _Instancia;
 
-        public static Ingresar_Usuario GetInstancia()
+        public static Ingreso_Tipo_Programa GetInstancia()
         {
             if (_Instancia == null || _Instancia.IsDisposed)
             {
-                _Instancia = new Ingresar_Usuario();
+                _Instancia = new Ingreso_Tipo_Programa();
             }
             else if (_Instancia.Created == false)
             {
-                _Instancia = new Ingresar_Usuario();
+                _Instancia = new Ingreso_Tipo_Programa();
             }
             return _Instancia;
         }
-        public Ingresar_Usuario()
+        public Ingreso_Tipo_Programa()
         {
             InitializeComponent();
 
-            this.ttMensaje.SetToolTip(this.textNombre, "Ingrese el nombre completo");
-            this.ttMensaje.SetToolTip(this.textUsuario, "Ingrese el nombre de usuario");
-            this.ttMensaje.SetToolTip(this.textContraseña, "Ingrese la contraseña");
-            this.ttMensaje.SetToolTip(this.comboRol, "Seleccione el rol del usuario");
-
-            this.textContraseña.PasswordChar = '*';
+            this.ttMensaje.SetToolTip(this.textNombre, "Ingrese el nombre del tipo de programa");
         }
 
         private void MensajeOk(string mensaje)
@@ -52,21 +47,16 @@ namespace Presentation
             MessageBox.Show(mensaje, "Sistema de Gestión de Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        //Metodo limpiar
         private void Limpiar()
         {
             this.textNombre.Text = string.Empty;
-            this.textUsuario.Text = string.Empty;
-            this.textContraseña.Text = string.Empty;
-            this.comboRol.Text = string.Empty;
+            this.textIdTipoPrograma.Text = string.Empty;
         }
 
         private void Habilitar(bool valor)
         {
             this.textNombre.ReadOnly = !valor;
-            this.textUsuario.ReadOnly = !valor;
-            this.textContraseña.ReadOnly = !valor;
-            this.comboRol.Enabled = valor;
+            this.textIdTipoPrograma.ReadOnly = !valor;
         }
 
         //Habilitar los botones
@@ -93,29 +83,26 @@ namespace Presentation
 
         }
 
-        //Metodo para oculatr columnas
         private void OculatrColumnas()
         {
             this.datosListar.Columns[0].Visible = false;
-            this.datosListar.Columns[1].Visible = false;
         }
 
-        //Metodo Mostrar
         private void Mostrar()
         {
-            this.datosListar.DataSource = UserModel.Mostrar();
+            this.datosListar.DataSource = TipoProgramaModel.Mostrar();
             this.OculatrColumnas();
             lblTotal.Text = "Total de Registros: " + Convert.ToString(datosListar.Rows.Count);
         }
 
         private void Buscar()
         {
-            this.datosListar.DataSource = UserModel.BuscarNombre(this.textBuscar.Text);
+            this.datosListar.DataSource = TipoProgramaModel.BuscarNombre(this.textBuscar.Text);
             this.OculatrColumnas();
             lblTotal.Text = "Total de Registros: " + Convert.ToString(datosListar.Rows.Count);
         }
 
-        private void Ingresar_Usuario_Load(object sender, EventArgs e)
+        private void Ingreso_Tipo_Programa_Load(object sender, EventArgs e)
         {
             this.Mostrar();
             this.Habilitar(false);
@@ -135,7 +122,7 @@ namespace Presentation
             this.Limpiar();
             this.Habilitar(true);
 
-            this.textUsuario.Focus();
+            this.textNombre.Focus();
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -143,22 +130,20 @@ namespace Presentation
             try
             {
                 string rpta = "";
-                if (this.textUsuario.Text == string.Empty || this.textContraseña.Text == string.Empty || this.comboRol.Text == string.Empty)
+                if (this.textNombre.Text == string.Empty)
                 {
-                    MensajeError("Faltan datos por ingresar");
-                    errorIcon.SetError(textUsuario, "Ingrese un nombre de usuario");
-                    errorIcon.SetError(textContraseña, "Ingrese una contraseña");
-                    errorIcon.SetError(comboRol, "Seleccione un rol");
+                    MensajeError("Faltan datos pro ingresar");
+                    errorIcon.SetError(textNombre, "Ingrese un nombre");
                 }
                 else
                 {
                     if (this.IsNuevo)
                     {
-                        rpta = UserModel.Insertar(this.textUsuario.Text.Trim().ToUpper(), this.textContraseña.Text.Trim(), this.comboRol.Text, this.textNombre.Text.Trim(), true, DateTime.Now);
+                        rpta = TipoProgramaModel.Insertar(this.textNombre.Text.Trim());
                     }
                     else
                     {
-                        rpta = UserModel.Editar(Convert.ToInt32(this.datosListar.CurrentRow.Cells["usuario_id"].Value), this.textUsuario.Text.Trim().ToUpper(), this.textContraseña.Text.Trim(), this.comboRol.Text, this.textNombre.Text.Trim(), true, DateTime.Now);
+                        rpta = TipoProgramaModel.Editar(Convert.ToInt32(this.textIdTipoPrograma.Text), this.textNombre.Text.Trim());
                     }
                     if (rpta.Equals("OK"))
                     {
@@ -175,7 +160,7 @@ namespace Presentation
                     {
                         this.MensajeError(rpta);
                     }
-                                        this.IsNuevo = false;
+                    this.IsNuevo = false;
                     this.IsEditar = false;
                     this.Botones();
                     this.Limpiar();
@@ -184,13 +169,13 @@ namespace Presentation
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + ex.StackTrace, "Sistema de Gestión de Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message + ex.StackTrace);
             }
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            if (!this.textIdUsuario.Text.Equals(""))
+            if (!this.textIdTipoPrograma.Text.Equals(""))
             {
                 this.IsEditar = true;
                 this.Botones();
@@ -198,7 +183,7 @@ namespace Presentation
             }
             else
             {
-                this.MensajeError("Seleccione el registro a editar");
+                this.MensajeError("Seleccione el registro a modificar");
             }
         }
 
@@ -225,13 +210,8 @@ namespace Presentation
 
         private void datosListar_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            this.textIdUsuario.Text = Convert.ToString(this.datosListar.CurrentRow.Cells["usuario_id"].Value);
-            this.textUsuario.Text = Convert.ToString(this.datosListar.CurrentRow.Cells["nombre_usuario"].Value);
-            this.textContraseña.Text = Convert.ToString(this.datosListar.CurrentRow.Cells["contrasena"].Value);
-            this.comboRol.Text = Convert.ToString(this.datosListar.CurrentRow.Cells["rol"].Value);
-            this.textNombre.Text = Convert.ToString(this.datosListar.CurrentRow.Cells["nombre_completo"].Value);
-
-
+            this.textIdTipoPrograma.Text = Convert.ToString(this.datosListar.CurrentRow.Cells["tipo_programa_id"].Value);
+            this.textNombre.Text = Convert.ToString(this.datosListar.CurrentRow.Cells["nombre_tipo"].Value);
         }
 
         private void checkEliminar_CheckedChanged(object sender, EventArgs e)
@@ -251,7 +231,7 @@ namespace Presentation
             try
             {
                 DialogResult Opcion;
-                Opcion = MessageBox.Show("¿Realmente desea eliminar los registros?", "Sistema de Gestión de Usuarios", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                Opcion = MessageBox.Show("Realmente desea eliminar los registros", "Sistema de Gestión de Usuarios", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
                 if (Opcion == DialogResult.OK)
                 {
@@ -263,10 +243,10 @@ namespace Presentation
                         if (Convert.ToBoolean(row.Cells[0].Value))
                         {
                             id = Convert.ToString(row.Cells[1].Value);
-                            Rpta = UserModel.Eliminar(Convert.ToInt32(id));
+                            Rpta = TipoProgramaModel.Eliminar(Convert.ToInt32(id));
                             if (Rpta.Equals("OK"))
                             {
-                                this.MensajeOk("Se eliminó correctamente el registro");
+                                this.MensajeOk("Se eliminó el registro: " + id);
                             }
                             else
                             {
@@ -274,13 +254,17 @@ namespace Presentation
                             }
                         }
                     }
-                    this.Mostrar();
-                    this.checkEliminar.Checked = false;
                 }
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + ex.StackTrace);
+            }
+            finally
+            {
+                this.Mostrar();
+                this.checkEliminar.Checked = false;
             }
         }
     }

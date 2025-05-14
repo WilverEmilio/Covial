@@ -32,7 +32,7 @@ namespace DataAccess.MySQL
                 try
                 {
                     SqlCon.Open();
-                    string query = "INSERT INTO tipo_programa " +
+                    string query = "INSERT INTO tiposprograma " +
                         "(nombre_tipo) VALUES " +
                         "(@nombre_tipo)";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
@@ -54,7 +54,7 @@ namespace DataAccess.MySQL
                 try
                 {
                     SqlCon.Open();
-                    string query = "UPDATE tipo_programa SET " +
+                    string query = "UPDATE tiposprograma SET " +
                         "nombre_tipo=@nombre_tipo " +
                         "WHERE tipo_programa_id=@tipo_programa_id";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
@@ -77,7 +77,7 @@ namespace DataAccess.MySQL
                 try
                 {
                     SqlCon.Open();
-                    string query = "DELETE FROM tipo_programa WHERE tipo_programa_id=@tipo_programa_id";
+                    string query = "DELETE FROM tiposprograma WHERE tipo_programa_id=@tipo_programa_id";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
                     cmd.Parameters.AddWithValue("@tipo_programa_id", tipo.Tipo_programa_id);
                     rpta = cmd.ExecuteNonQuery() == 1 ? "OK" : "Error al eliminar el registro";
@@ -92,12 +92,12 @@ namespace DataAccess.MySQL
         //metodo para mostrar todos los tipos de programa
         public DataTable Mostrar()
         {
-            DataTable dt = new DataTable("tipo_programa");
+            DataTable dt = new DataTable("tiposprograma");
             using (MySqlConnection SqlCon = new MySqlConnection(connectionString))
                 try
                 {
                     SqlCon.Open();
-                    string query = "SELECT * FROM tipo_programa";
+                    string query = "SELECT * FROM tiposprograma";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                     da.Fill(dt);
@@ -112,12 +112,12 @@ namespace DataAccess.MySQL
         //metodo para buscar un tipo de programa por su nombre
         public DataTable Buscar(TipoProgramaDao tipo)
         {
-            DataTable dt = new DataTable("tipo_programa");
+            DataTable dt = new DataTable("tiposprograma");
             using (MySqlConnection SqlCon = new MySqlConnection(connectionString))
                 try
                 {
                     SqlCon.Open();
-                    string query = "SELECT * FROM tipo_programa WHERE nombre_tipo LIKE @nombre_tipo";
+                    string query = "SELECT * FROM tiposprograma WHERE nombre_tipo LIKE @nombre_tipo";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
                     cmd.Parameters.AddWithValue("@nombre_tipo", "%" + tipo.Nombre_tipo + "%");
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
