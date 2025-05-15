@@ -86,6 +86,12 @@ namespace Presentation
             frm.MdiParent = this;
             frm.Show();
         }
-        
+
+        private void programasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Ingreso_Programas frm = Ingreso_Programas.GetInstancia();
+            frm.MdiParent = this;
+            frm.Show();
+        }
     }
 }

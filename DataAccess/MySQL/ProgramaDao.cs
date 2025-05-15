@@ -56,7 +56,7 @@ namespace DataAccess.MySQL
                 try
                 {
                     SqlCon.Open();
-                    string query = "INSERT INTO programa " +
+                    string query = "INSERT INTO programas " +
                         "(plan_anual_id, tipo_programa_id, nombre_programa, descripcion, fecha_inicio_prevista, fecha_fin_prevista, fecha_creacion) VALUES " +
                         "(@plan_anual_id, @tipo_programa_id, @nombre_programa, @descripcion, @fecha_inicio_prevista, @fecha_fin_prevista, @fecha_creacion)";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
@@ -84,7 +84,7 @@ namespace DataAccess.MySQL
                 try
                 {
                     SqlCon.Open();
-                    string query = "UPDATE programa SET " +
+                    string query = "UPDATE programas SET " +
                         "plan_anual_id=@plan_anual_id, tipo_programa_id=@tipo_programa_id, nombre_programa=@nombre_programa, descripcion=@descripcion, fecha_inicio_prevista=@fecha_inicio_prevista, fecha_fin_prevista=@fecha_fin_prevista " +
                         "WHERE programa_id=@programa_id";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
@@ -112,7 +112,7 @@ namespace DataAccess.MySQL
                 try
                 {
                     SqlCon.Open();
-                    string query = "DELETE FROM programa WHERE programa_id=@programa_id";
+                    string query = "DELETE FROM programas WHERE programa_id=@programa_id";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
                     cmd.Parameters.AddWithValue("@programa_id", programa.Programa_id);
                     rpta = cmd.ExecuteNonQuery() == 1 ? "OK" : "Error al eliminar el registro";
@@ -127,13 +127,27 @@ namespace DataAccess.MySQL
         //metodo para mostrar un programa
         public DataTable Mostrar()
         {
-            DataTable dt = new DataTable("programa");
+            DataTable dt = new DataTable("programas");
             using (MySqlConnection SqlCon = new MySqlConnection(connectionString))
                 try
                 {
                     SqlCon.Open();
-                    string query = "SELECT p.programa_id, p.plan_anual_id, p.tipo_programa_id, p.nombre_programa, p.descripcion, p.fecha_inicio_prevista, p.fecha_fin_prevista, p.fecha_creacion " +
-                        "FROM programa p";
+                    string query = @"
+                        SELECT 
+                            p.programa_id,
+                            p.plan_anual_id,
+                            pa.nombre_plan,
+                            p.tipo_programa_id,
+                            tp.nombre_tipo,
+                            p.nombre_programa,
+                            p.descripcion,
+                            p.fecha_inicio_prevista,
+                            p.fecha_fin_prevista,
+                            p.fecha_creacion
+                        FROM programas p
+                        INNER JOIN planesanuales pa ON p.plan_anual_id = pa.plan_anual_id
+                        INNER JOIN tiposprograma tp ON p.tipo_programa_id = tp.tipo_programa_id;
+                    ";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                     da.Fill(dt);
@@ -148,13 +162,25 @@ namespace DataAccess.MySQL
         //metodo para buscar un programa por nombre
         public DataTable BuscarNombre(ProgramaDao programa)
         {
-            DataTable dt = new DataTable("programa");
+            DataTable dt = new DataTable("programas");
             using (MySqlConnection SqlCon = new MySqlConnection(connectionString))
                 try
                 {
                     SqlCon.Open();
-                    string query = "SELECT p.programa_id, p.plan_anual_id, p.tipo_programa_id, p.nombre_programa, p.descripcion, p.fecha_inicio_prevista, p.fecha_fin_prevista, p.fecha_creacion " +
-                        "FROM programa p WHERE p.nombre_programa LIKE @textobuscar";
+                    string query = @"SELECT 
+                            p.programa_id,
+                            p.plan_anual_id,
+                            pa.nombre_plan,
+                            p.tipo_programa_id,
+                            tp.nombre_tipo,
+                            p.nombre_programa,
+                            p.descripcion,
+                            p.fecha_inicio_prevista,
+                            p.fecha_fin_prevista,
+                            p.fecha_creacion
+                        FROM programas p
+                        INNER JOIN planesanuales pa ON p.plan_anual_id = pa.plan_anual_id
+                        INNER JOIN tiposprograma tp ON p.tipo_programa_id = tp.tipo_programa_id; WHERE p.nombre_programa LIKE @textobuscar";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
                     cmd.Parameters.AddWithValue("@textobuscar", programa.Textobuscar);
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
@@ -170,13 +196,13 @@ namespace DataAccess.MySQL
         //metodo para busscar por fechas inicio y fin
         public DataTable BuscarFechas(ProgramaDao programa)
         {
-            DataTable dt = new DataTable("programa");
+            DataTable dt = new DataTable("programas");
             using (MySqlConnection SqlCon = new MySqlConnection(connectionString))
                 try
                 {
                     SqlCon.Open();
                     string query = "SELECT p.programa_id, p.plan_anual_id, p.tipo_programa_id, p.nombre_programa, p.descripcion, p.fecha_inicio_prevista, p.fecha_fin_prevista, p.fecha_creacion " +
-                        "FROM programa p WHERE p.fecha_inicio_prevista BETWEEN @fecha_inicio AND @fecha_fin";
+                        "FROM programas p WHERE p.fecha_inicio_prevista BETWEEN @fecha_inicio AND @fecha_fin";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
                     cmd.Parameters.AddWithValue("@fecha_inicio", programa.Fecha_inicio_prevista);
                     cmd.Parameters.AddWithValue("@fecha_fin", programa.Fecha_fin_prevista);
