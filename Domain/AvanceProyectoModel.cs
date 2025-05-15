@@ -12,20 +12,21 @@ namespace Domain
     public class AvanceProyectoModel
     {
         //Metodo Insertar que llama al metodo Insertar de la clase AvanceProyectoDao de la capa de DataAccess
-        public static string Insertar(int proyecto_id, DateTime fecha_avance, decimal cantidad_reportada, string descripcion_avance, int reportado_por, DateTime fecha_registro)
+        public static string Insertar(int proyecto_id, DateTime fecha_avance, decimal cantidad_reportada, string descripcion_avance, string fotos, int reportado_por, DateTime fecha_registro)
         {
             AvanceProyectoDao obj = new AvanceProyectoDao();
             obj.Proyecto_id = proyecto_id;
             obj.Fecha_avance = fecha_avance;
             obj.Cantidad_reportada = cantidad_reportada;
             obj.Descripcion_avance = descripcion_avance;
+            obj.Fotos = fotos;
             obj.Reportado_por = reportado_por;
             obj.Fecha_registro = fecha_registro;
             return obj.Insertar(obj);
         }
 
         //Metodo Editar que llama al metodo Editar de la clase AvanceProyectoDao de la capa de DataAccess
-        public static string Editar(int id_avance, int proyecto_id, DateTime fecha_avance, decimal cantidad_reportada, string descripcion_avance, int reportado_por, DateTime fecha_registro)
+        public static string Editar(int id_avance, int proyecto_id, DateTime fecha_avance, decimal cantidad_reportada, string descripcion_avance, string fotos, int reportado_por, DateTime fecha_registro)
         {
             AvanceProyectoDao obj = new AvanceProyectoDao();
             obj.Avance_id = id_avance;
@@ -33,6 +34,7 @@ namespace Domain
             obj.Fecha_avance = fecha_avance;
             obj.Cantidad_reportada = cantidad_reportada;
             obj.Descripcion_avance = descripcion_avance;
+            obj.Fotos = fotos;
             obj.Reportado_por = reportado_por;
             obj.Fecha_registro = fecha_registro;
             return obj.Editar(obj);
@@ -66,6 +68,14 @@ namespace Domain
             AvanceProyectoDao obj = new AvanceProyectoDao();
             obj.Fecha_avance = fecha_inicio;
             return obj.MostrarAvancesPorFecha(obj);
+        }
+
+        //Metodo para buscar un avance port proyecto_id que entonces seria nombre
+        public static DataTable Buscar(string texto)
+        {
+            AvanceProyectoDao obj = new AvanceProyectoDao();
+            obj.Textobuscar = texto;
+            return obj.Buscar(obj);
         }
     }
 }

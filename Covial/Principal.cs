@@ -103,5 +103,15 @@ namespace Presentation
             frm.MdiParent = this;
             frm.Show();
         }
+
+        private void avancesDelProyectoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Ingreso_AvancesProyecto frm = Ingreso_AvancesProyecto.GetInstancia();
+            frm.UsuarioId = this.usuario_id;
+            frm.NombreUsuario = this.nombre_usuario;
+            frm.Rol = this.rol;
+            frm.MdiParent = this;
+            frm.Show();
+        }
     }
 }

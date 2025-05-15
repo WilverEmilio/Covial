@@ -153,6 +153,7 @@
             avancesDelProyectoToolStripMenuItem.Name = "avancesDelProyectoToolStripMenuItem";
             avancesDelProyectoToolStripMenuItem.Size = new Size(187, 22);
             avancesDelProyectoToolStripMenuItem.Text = "Avances del Proyecto";
+            avancesDelProyectoToolStripMenuItem.Click += avancesDelProyectoToolStripMenuItem_Click;
             // 
             // gestiónFinancieraToolStripMenuItem
             // 
