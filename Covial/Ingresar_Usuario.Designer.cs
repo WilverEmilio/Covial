@@ -221,6 +221,7 @@
             // 
             comboRol.Font = new Font("Century Gothic", 9.75F);
             comboRol.FormattingEnabled = true;
+            comboRol.Items.AddRange(new object[] { "Administrador", "Supervisor", "Consulta" });
             comboRol.Location = new Point(118, 61);
             comboRol.Name = "comboRol";
             comboRol.Size = new Size(211, 25);

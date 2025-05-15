@@ -17,6 +17,7 @@ namespace DataAccess.MySQL
         private string _nombre_proyecto;
         private string _descripcion;
         private string _ubicacion;
+        private string _unidad_medida;
         private decimal _cantidad_estimada;
         private decimal _costo_unitario_estimado;
         private decimal _presupuesto_estimado;
@@ -43,6 +44,7 @@ namespace DataAccess.MySQL
         public DateTime Fecha_creacion { get => _fecha_creacion; set => _fecha_creacion = value; }
         public int Creado_por { get => _creado_por; set => _creado_por = value; }
         public string Textobuscar { get => _textobuscar; set => _textobuscar = value; }
+        public string Unidad_medida { get => _unidad_medida; set => _unidad_medida = value; }
 
         //Constructor vacio
         public ProyectoDao()
@@ -50,13 +52,14 @@ namespace DataAccess.MySQL
         }
 
         //Constructor con parametros
-        public ProyectoDao(int proyecto_id, int programa_id, int contratista_id, string nombre_proyecto, string descripcion, string ubicacion, decimal cantidad_estimada, decimal costo_unitario_estimado, decimal presupuesto_estimado, DateTime fecha_inicio_prevista, DateTime fecha_fin_prevista, string estado, DateTime fecha_creacion, int creado_por)
+        public ProyectoDao(int proyecto_id, int programa_id, int contratista_id, string nombre_proyecto, string descripcion, string ubicacion,string unidad_medida, decimal cantidad_estimada, decimal costo_unitario_estimado, decimal presupuesto_estimado, DateTime fecha_inicio_prevista, DateTime fecha_fin_prevista, string estado, DateTime fecha_creacion, int creado_por)
         {
             this.Proyecto_id = proyecto_id;
             this.Programa_id = programa_id;
             this.Contratista_id = contratista_id;
             this.Nombre_proyecto = nombre_proyecto;
             this.Descripcion = descripcion;
+            this.Unidad_medida = unidad_medida;
             this.Ubicacion = ubicacion;
             this.Cantidad_estimada = cantidad_estimada;
             this.Costo_unitario_estimado = costo_unitario_estimado;
@@ -76,15 +79,16 @@ namespace DataAccess.MySQL
                 try
                 {
                     SqlCon.Open();
-                    string query = "INSERT INTO proyecto " +
-                        "(programa_id, contratista_id, nombre_proyecto, descripcion, ubicacion, cantidad_estimada, costo_unitario_estimado, presupuesto_estimado, fecha_inicio_prevista, fecha_fin_prevista, estado, fecha_creacion, creado_por) VALUES " +
-                        "(@programa_id, @contratista_id, @nombre_proyecto, @descripcion, @ubicacion, @cantidad_estimada, @costo_unitario_estimado, @presupuesto_estimado, @fecha_inicio_prevista, @fecha_fin_prevista, @estado, @fecha_creacion, @creado_por)";
+                    string query = "INSERT INTO proyectos " +
+                        "(programa_id, contratista_id, nombre_proyecto, descripcion, ubicacion,unidad_medida, cantidad_estimada, costo_unitario_estimado, presupuesto_estimado, fecha_inicio_prevista, fecha_fin_prevista, estado, fecha_creacion, creado_por) VALUES " +
+                        "(@programa_id, @contratista_id, @nombre_proyecto, @descripcion, @ubicacion, @unidad_medida,@cantidad_estimada, @costo_unitario_estimado, @presupuesto_estimado, @fecha_inicio_prevista, @fecha_fin_prevista, @estado, @fecha_creacion, @creado_por)";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
                     cmd.Parameters.AddWithValue("@programa_id", proyecto.Programa_id);
                     cmd.Parameters.AddWithValue("@contratista_id", proyecto.Contratista_id);
                     cmd.Parameters.AddWithValue("@nombre_proyecto", proyecto.Nombre_proyecto);
                     cmd.Parameters.AddWithValue("@descripcion", proyecto.Descripcion);
                     cmd.Parameters.AddWithValue("@ubicacion", proyecto.Ubicacion);
+                    cmd.Parameters.AddWithValue("@unidad_medida", proyecto.Unidad_medida);
                     cmd.Parameters.AddWithValue("@cantidad_estimada", proyecto.Cantidad_estimada);
                     cmd.Parameters.AddWithValue("@costo_unitario_estimado", proyecto.Costo_unitario_estimado);
                     cmd.Parameters.AddWithValue("@presupuesto_estimado", proyecto.Presupuesto_estimado);
@@ -110,8 +114,8 @@ namespace DataAccess.MySQL
                 try
                 {
                     SqlCon.Open();
-                    string query = "UPDATE proyecto SET " +
-                        "programa_id=@programa_id, contratista_id=@contratista_id, nombre_proyecto=@nombre_proyecto, descripcion=@descripcion, ubicacion=@ubicacion, cantidad_estimada=@cantidad_estimada, costo_unitario_estimado=@costo_unitario_estimado, presupuesto_estimado=@presupuesto_estimado, fecha_inicio_prevista=@fecha_inicio_prevista, fecha_fin_prevista=@fecha_fin_prevista, estado=@estado " +
+                    string query = "UPDATE proyectos SET " +
+                        "programa_id=@programa_id, contratista_id=@contratista_id, nombre_proyecto=@nombre_proyecto, descripcion=@descripcion, ubicacion=@ubicacion,unidad_medida=@unidad_medida, cantidad_estimada=@cantidad_estimada, costo_unitario_estimado=@costo_unitario_estimado, presupuesto_estimado=@presupuesto_estimado, fecha_inicio_prevista=@fecha_inicio_prevista, fecha_fin_prevista=@fecha_fin_prevista, estado=@estado " +
                         "WHERE proyecto_id=@proyecto_id";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
                     cmd.Parameters.AddWithValue("@proyecto_id", proyecto.Proyecto_id);
@@ -120,6 +124,7 @@ namespace DataAccess.MySQL
                     cmd.Parameters.AddWithValue("@nombre_proyecto", proyecto.Nombre_proyecto);
                     cmd.Parameters.AddWithValue("@descripcion", proyecto.Descripcion);
                     cmd.Parameters.AddWithValue("@ubicacion", proyecto.Ubicacion);
+                    cmd.Parameters.AddWithValue("@unidad_medida", proyecto.Unidad_medida);
                     cmd.Parameters.AddWithValue("@cantidad_estimada", proyecto.Cantidad_estimada);
                     cmd.Parameters.AddWithValue("@costo_unitario_estimado", proyecto.Costo_unitario_estimado);
                     cmd.Parameters.AddWithValue("@presupuesto_estimado", proyecto.Presupuesto_estimado);
@@ -143,7 +148,7 @@ namespace DataAccess.MySQL
                 try
                 {
                     SqlCon.Open();
-                    string query = "DELETE FROM proyecto WHERE proyecto_id=@proyecto_id";
+                    string query = "DELETE FROM proyectos WHERE proyecto_id=@proyecto_id";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
                     cmd.Parameters.AddWithValue("@proyecto_id", proyecto.Proyecto_id);
                     rpta = cmd.ExecuteNonQuery() == 1 ? "OK" : "Error al eliminar el registro";
@@ -158,12 +163,43 @@ namespace DataAccess.MySQL
         //metodo para mostrar todos los proyectos
         public DataTable Mostrar()
         {
-            DataTable dt = new DataTable("proyecto");
+            DataTable dt = new DataTable("proyectos");
             using (MySqlConnection SqlCon = new MySqlConnection(connectionString))
                 try
                 {
                     SqlCon.Open();
-                    string query = "SELECT * FROM proyecto";
+                    string query = @"SELECT  
+                            p.proyecto_id,
+    
+                            -- Programa
+                            pr.programa_id,
+                            pr.nombre_programa,
+    
+                            -- Contratista
+                            c.contratista_id,
+                            c.nombre_contratista,
+    
+                            -- Datos del proyecto
+                            p.nombre_proyecto,
+                            p.descripcion,
+                            p.ubicacion,
+                            p.unidad_medida,
+                            p.cantidad_estimada,
+                            p.costo_unitario_estimado,
+                            p.presupuesto_estimado,
+                            p.fecha_inicio_prevista,
+                            p.fecha_fin_prevista,
+                            p.estado,
+                            p.fecha_creacion,
+                            -- creado por
+                            us.usuario_id,
+                            us.nombre_usuario
+    
+                        FROM proyectos p
+
+                        INNER JOIN programas pr ON p.programa_id = pr.programa_id
+                        INNER JOIN usuarios us ON p.creado_por = us.usuario_id
+                        LEFT JOIN contratistas c ON p.contratista_id = c.contratista_id;";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                     da.Fill(dt);
@@ -178,12 +214,12 @@ namespace DataAccess.MySQL
         //metodo para buscar un proyecto por nombre
         public DataTable BuscarNombre(ProyectoDao proyecto)
         {
-            DataTable dt = new DataTable("proyecto");
+            DataTable dt = new DataTable("proyectos");
             using (MySqlConnection SqlCon = new MySqlConnection(connectionString))
                 try
                 {
                     SqlCon.Open();
-                    string query = "SELECT * FROM proyecto WHERE nombre_proyecto LIKE @textobuscar";
+                    string query = "SELECT * FROM proyectos WHERE nombre_proyecto LIKE @textobuscar";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
                     cmd.Parameters.AddWithValue("@textobuscar", proyecto.Textobuscar + "%");
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
@@ -199,12 +235,12 @@ namespace DataAccess.MySQL
         //metodo para buscara por fecha inicio y fin
         public DataTable BuscarFecha(ProyectoDao proyecto)
         {
-            DataTable dt = new DataTable("proyecto");
+            DataTable dt = new DataTable("proyectos");
             using (MySqlConnection SqlCon = new MySqlConnection(connectionString))
                 try
                 {
                     SqlCon.Open();
-                    string query = "SELECT * FROM proyecto WHERE fecha_inicio_prevista BETWEEN @fechainicio AND @fechafin";
+                    string query = "SELECT * FROM proyectos WHERE fecha_inicio_prevista BETWEEN @fechainicio AND @fechafin";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
                     cmd.Parameters.AddWithValue("@fechainicio", proyecto.Fecha_inicio_prevista);
                     cmd.Parameters.AddWithValue("@fechafin", proyecto.Fecha_fin_prevista);
@@ -221,12 +257,12 @@ namespace DataAccess.MySQL
         //metodo para mostrar los proyectos por programa
         public DataTable MostrarPorPrograma(ProyectoDao proyecto)
         {
-            DataTable dt = new DataTable("proyecto");
+            DataTable dt = new DataTable("proyectos");
             using (MySqlConnection SqlCon = new MySqlConnection(connectionString))
                 try
                 {
                     SqlCon.Open();
-                    string query = "SELECT * FROM proyecto WHERE programa_id=@programa_id";
+                    string query = "SELECT * FROM proyectos WHERE programa_id=@programa_id";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
                     cmd.Parameters.AddWithValue("@programa_id", proyecto.Programa_id);
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
@@ -242,12 +278,12 @@ namespace DataAccess.MySQL
         //metodo para mostrar los proyectos por contratista
         public DataTable MostrarPorContratista(ProyectoDao proyecto)
         {
-            DataTable dt = new DataTable("proyecto");
+            DataTable dt = new DataTable("proyectos");
             using (MySqlConnection SqlCon = new MySqlConnection(connectionString))
                 try
                 {
                     SqlCon.Open();
-                    string query = "SELECT * FROM proyecto WHERE contratista_id=@contratista_id";
+                    string query = "SELECT * FROM proyectos WHERE contratista_id=@contratista_id";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
                     cmd.Parameters.AddWithValue("@contratista_id", proyecto.Contratista_id);
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);
@@ -263,12 +299,12 @@ namespace DataAccess.MySQL
         //metodo para mostrar los proyectos por estado
         public DataTable MostrarPorEstado(ProyectoDao proyecto)
         {
-            DataTable dt = new DataTable("proyecto");
+            DataTable dt = new DataTable("proyectos");
             using (MySqlConnection SqlCon = new MySqlConnection(connectionString))
                 try
                 {
                     SqlCon.Open();
-                    string query = "SELECT * FROM proyecto WHERE estado=@estado";
+                    string query = "SELECT * FROM proyectos WHERE estado=@estado";
                     MySqlCommand cmd = new MySqlCommand(query, SqlCon);
                     cmd.Parameters.AddWithValue("@estado", proyecto.Estado);
                     MySqlDataAdapter da = new MySqlDataAdapter(cmd);

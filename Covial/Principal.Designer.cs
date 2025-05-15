@@ -102,28 +102,28 @@
             // usuariosToolStripMenuItem
             // 
             usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
-            usuariosToolStripMenuItem.Size = new Size(180, 22);
+            usuariosToolStripMenuItem.Size = new Size(173, 22);
             usuariosToolStripMenuItem.Text = "Usuarios";
             usuariosToolStripMenuItem.Click += usuariosToolStripMenuItem_Click;
             // 
             // contratistasToolStripMenuItem
             // 
             contratistasToolStripMenuItem.Name = "contratistasToolStripMenuItem";
-            contratistasToolStripMenuItem.Size = new Size(180, 22);
+            contratistasToolStripMenuItem.Size = new Size(173, 22);
             contratistasToolStripMenuItem.Text = "Contratistas";
             contratistasToolStripMenuItem.Click += contratistasToolStripMenuItem_Click;
             // 
             // tiposDeProgramaToolStripMenuItem
             // 
             tiposDeProgramaToolStripMenuItem.Name = "tiposDeProgramaToolStripMenuItem";
-            tiposDeProgramaToolStripMenuItem.Size = new Size(180, 22);
+            tiposDeProgramaToolStripMenuItem.Size = new Size(173, 22);
             tiposDeProgramaToolStripMenuItem.Text = "Tipos de Programa";
             tiposDeProgramaToolStripMenuItem.Click += tiposDeProgramaToolStripMenuItem_Click;
             // 
             // planesAnualesToolStripMenuItem
             // 
             planesAnualesToolStripMenuItem.Name = "planesAnualesToolStripMenuItem";
-            planesAnualesToolStripMenuItem.Size = new Size(180, 22);
+            planesAnualesToolStripMenuItem.Size = new Size(173, 22);
             planesAnualesToolStripMenuItem.Text = "Planes Anuales";
             planesAnualesToolStripMenuItem.Click += planesAnualesToolStripMenuItem_Click;
             // 
@@ -146,6 +146,7 @@
             proyectosToolStripMenuItem.Name = "proyectosToolStripMenuItem";
             proyectosToolStripMenuItem.Size = new Size(187, 22);
             proyectosToolStripMenuItem.Text = "Proyectos";
+            proyectosToolStripMenuItem.Click += proyectosToolStripMenuItem_Click;
             // 
             // avancesDelProyectoToolStripMenuItem
             // 

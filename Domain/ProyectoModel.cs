@@ -11,7 +11,7 @@ namespace Domain
     public class ProyectoModel
     {
         //Metodo Insertar que llama al metodo Insertar de la clase ProyectoDao de la capa de DataAccess
-        public static string Insertar(int programa_id, int contratista_id, string nombre_proyecto, string descripcion, string ubicacion, decimal cantidad_estimada, decimal costo_unitario_estimado, decimal presupuesto_estimado, DateTime fecha_inicio_prevista, DateTime fecha_fin_prevista, string estado, DateTime fecha_creacion, int creado_por)
+        public static string Insertar(int programa_id, int contratista_id, string nombre_proyecto, string descripcion, string ubicacion, string unidad_medida,decimal cantidad_estimada, decimal costo_unitario_estimado, decimal presupuesto_estimado, DateTime fecha_inicio_prevista, DateTime fecha_fin_prevista, string estado, DateTime fecha_creacion, int creado_por)
         {
             ProyectoDao obj = new ProyectoDao();
             obj.Programa_id = programa_id;
@@ -19,6 +19,7 @@ namespace Domain
             obj.Nombre_proyecto = nombre_proyecto;
             obj.Descripcion = descripcion;
             obj.Ubicacion = ubicacion;
+            obj.Unidad_medida = unidad_medida;
             obj.Cantidad_estimada = cantidad_estimada;
             obj.Costo_unitario_estimado = costo_unitario_estimado;
             obj.Presupuesto_estimado = presupuesto_estimado;
@@ -31,7 +32,7 @@ namespace Domain
         }
 
         //Metodo Editar que llama al metodo Editar de la clase ProyectoDao de la capa de DataAccess
-        public static string Editar(int proyecto_id, int programa_id, int contratista_id, string nombre_proyecto, string descripcion, string ubicacion, decimal cantidad_estimada, decimal costo_unitario_estimado, decimal presupuesto_estimado, DateTime fecha_inicio_prevista, DateTime fecha_fin_prevista, string estado, DateTime fecha_creacion, int creado_por)
+        public static string Editar(int proyecto_id, int programa_id, int contratista_id, string nombre_proyecto, string descripcion, string ubicacion, string unidad_medida, decimal cantidad_estimada, decimal costo_unitario_estimado, decimal presupuesto_estimado, DateTime fecha_inicio_prevista, DateTime fecha_fin_prevista, string estado, DateTime fecha_creacion, int creado_por)
         {
             ProyectoDao obj = new ProyectoDao();
             obj.Proyecto_id = proyecto_id;
@@ -40,6 +41,7 @@ namespace Domain
             obj.Nombre_proyecto = nombre_proyecto;
             obj.Descripcion = descripcion;
             obj.Ubicacion = ubicacion;
+            obj.Unidad_medida = unidad_medida;
             obj.Cantidad_estimada = cantidad_estimada;
             obj.Costo_unitario_estimado = costo_unitario_estimado;
             obj.Presupuesto_estimado = presupuesto_estimado;
