@@ -7,6 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.IO;
+using System.Diagnostics;
 
 namespace Presentation
 {
@@ -200,7 +204,7 @@ namespace Presentation
                 // Crear formulario para la constancia
                 Form formConstancia = new Form();
                 formConstancia.Text = "Constancia de Pago";
-                formConstancia.Size = new Size(800, 600);
+                formConstancia.Size = new Size(800, 800);
                 formConstancia.StartPosition = FormStartPosition.CenterScreen;
                 formConstancia.BackColor = Color.White;
                 formConstancia.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -215,7 +219,7 @@ namespace Presentation
                 // Encabezado
                 Label lblTitulo = new Label();
                 lblTitulo.Text = "CONSTANCIA DE PAGO";
-                lblTitulo.Font = new Font("Arial", 16, FontStyle.Bold);
+                lblTitulo.Font = new System.Drawing.Font("Arial", 16, FontStyle.Bold);
                 lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
                 lblTitulo.Size = new Size(760, 40);
                 lblTitulo.Location = new Point(20, 20);
@@ -224,7 +228,7 @@ namespace Presentation
                 // Fecha
                 Label lblFecha = new Label();
                 lblFecha.Text = "Fecha de Emisión: " + fechaActual;
-                lblFecha.Font = new Font("Arial", 10);
+                lblFecha.Font = new System.Drawing.Font("Arial", 10);
                 lblFecha.Size = new Size(760, 20);
                 lblFecha.Location = new Point(20, 70);
                 lblFecha.TextAlign = ContentAlignment.MiddleRight;
@@ -242,49 +246,49 @@ namespace Presentation
                 // Información del Proyecto
                 Label lblProyectoTitulo = new Label();
                 lblProyectoTitulo.Text = "INFORMACIÓN DEL PROYECTO";
-                lblProyectoTitulo.Font = new Font("Arial", 12, FontStyle.Bold);
+                lblProyectoTitulo.Font = new System.Drawing.Font("Arial", 12, FontStyle.Bold);
                 lblProyectoTitulo.Size = new Size(760, 25);
                 lblProyectoTitulo.Location = new Point(20, 110);
                 panelInfo.Controls.Add(lblProyectoTitulo);
 
                 Label lblProyectoID = new Label();
                 lblProyectoID.Text = "ID Proyecto: " + idProyecto;
-                lblProyectoID.Font = new Font("Arial", 10);
+                lblProyectoID.Font = new System.Drawing.Font("Arial", 10);
                 lblProyectoID.Size = new Size(760, 20);
                 lblProyectoID.Location = new Point(40, 140);
                 panelInfo.Controls.Add(lblProyectoID);
 
                 Label lblProyectoNombre = new Label();
                 lblProyectoNombre.Text = "Nombre: " + proyectoNombre;
-                lblProyectoNombre.Font = new Font("Arial", 10);
+                lblProyectoNombre.Font = new System.Drawing.Font("Arial", 10);
                 lblProyectoNombre.Size = new Size(760, 20);
                 lblProyectoNombre.Location = new Point(40, 160);
                 panelInfo.Controls.Add(lblProyectoNombre);
 
                 Label lblProyectoDesc = new Label();
                 lblProyectoDesc.Text = "Descripción: " + proyectoDescripcion;
-                lblProyectoDesc.Font = new Font("Arial", 10);
+                lblProyectoDesc.Font = new System.Drawing.Font("Arial", 10);
                 lblProyectoDesc.Size = new Size(760, 20);
                 lblProyectoDesc.Location = new Point(40, 180);
                 panelInfo.Controls.Add(lblProyectoDesc);
 
                 Label lblUbicacion = new Label();
                 lblUbicacion.Text = "Ubicación: " + ubicacion;
-                lblUbicacion.Font = new Font("Arial", 10);
+                lblUbicacion.Font = new System.Drawing.Font("Arial", 10);
                 lblUbicacion.Size = new Size(760, 20);
                 lblUbicacion.Location = new Point(40, 200);
                 panelInfo.Controls.Add(lblUbicacion);
 
                 Label lblCantEst = new Label();
                 lblCantEst.Text = "Cantidad Estimada: " + cantidadEstimada;
-                lblCantEst.Font = new Font("Arial", 10);
+                lblCantEst.Font = new System.Drawing.Font("Arial", 10);
                 lblCantEst.Size = new Size(360, 20);
                 lblCantEst.Location = new Point(40, 220);
                 panelInfo.Controls.Add(lblCantEst);
 
                 Label lblPrecioUnit = new Label();
                 lblPrecioUnit.Text = "Precio Unitario: $" + precioUnitario;
-                lblPrecioUnit.Font = new Font("Arial", 10);
+                lblPrecioUnit.Font = new System.Drawing.Font("Arial", 10);
                 lblPrecioUnit.Size = new Size(360, 20);
                 lblPrecioUnit.Location = new Point(400, 220);
                 panelInfo.Controls.Add(lblPrecioUnit);
@@ -301,28 +305,28 @@ namespace Presentation
                 // Información del Avance
                 Label lblAvanceTitulo = new Label();
                 lblAvanceTitulo.Text = "INFORMACIÓN DE AVANCE";
-                lblAvanceTitulo.Font = new Font("Arial", 12, FontStyle.Bold);
+                lblAvanceTitulo.Font = new System.Drawing.Font("Arial", 12, FontStyle.Bold);
                 lblAvanceTitulo.Size = new Size(760, 25);
                 lblAvanceTitulo.Location = new Point(20, 260);
                 panelInfo.Controls.Add(lblAvanceTitulo);
 
                 Label lblAvanceID = new Label();
                 lblAvanceID.Text = "ID Avance: " + idAvance;
-                lblAvanceID.Font = new Font("Arial", 10);
+                lblAvanceID.Font = new System.Drawing.Font("Arial", 10);
                 lblAvanceID.Size = new Size(760, 20);
                 lblAvanceID.Location = new Point(40, 290);
                 panelInfo.Controls.Add(lblAvanceID);
 
                 Label lblCantReport = new Label();
                 lblCantReport.Text = "Cantidad Reportada: " + cantidadReportada;
-                lblCantReport.Font = new Font("Arial", 10);
+                lblCantReport.Font = new System.Drawing.Font("Arial", 10);
                 lblCantReport.Size = new Size(760, 20);
                 lblCantReport.Location = new Point(40, 310);
                 panelInfo.Controls.Add(lblCantReport);
 
                 Label lblDescAvance = new Label();
                 lblDescAvance.Text = "Descripción del Avance: " + descripcionAvance;
-                lblDescAvance.Font = new Font("Arial", 10);
+                lblDescAvance.Font = new System.Drawing.Font("Arial", 10);
                 lblDescAvance.Size = new Size(760, 20);
                 lblDescAvance.Location = new Point(40, 330);
                 panelInfo.Controls.Add(lblDescAvance);
@@ -339,42 +343,42 @@ namespace Presentation
                 // Detalles del Cálculo
                 Label lblCalculoTitulo = new Label();
                 lblCalculoTitulo.Text = "DETALLES DEL CÁLCULO";
-                lblCalculoTitulo.Font = new Font("Arial", 12, FontStyle.Bold);
+                lblCalculoTitulo.Font = new System.Drawing.Font("Arial", 12, FontStyle.Bold);
                 lblCalculoTitulo.Size = new Size(760, 25);
                 lblCalculoTitulo.Location = new Point(20, 370);
                 panelInfo.Controls.Add(lblCalculoTitulo);
 
                 Label lblMontoBase = new Label();
                 lblMontoBase.Text = "Monto Base: $" + montoBase.ToString("N2");
-                lblMontoBase.Font = new Font("Arial", 10);
+                lblMontoBase.Font = new System.Drawing.Font("Arial", 10);
                 lblMontoBase.Size = new Size(760, 20);
                 lblMontoBase.Location = new Point(40, 400);
                 panelInfo.Controls.Add(lblMontoBase);
 
                 Label lblPorcentajeImp = new Label();
                 lblPorcentajeImp.Text = "Porcentaje de Impuesto: " + impuesto + "%";
-                lblPorcentajeImp.Font = new Font("Arial", 10);
+                lblPorcentajeImp.Font = new System.Drawing.Font("Arial", 10);
                 lblPorcentajeImp.Size = new Size(360, 20);
                 lblPorcentajeImp.Location = new Point(40, 420);
                 panelInfo.Controls.Add(lblPorcentajeImp);
 
                 Label lblMontoImp = new Label();
                 lblMontoImp.Text = "Monto Impuesto: $" + montoImpuesto.ToString("N2");
-                lblMontoImp.Font = new Font("Arial", 10);
+                lblMontoImp.Font = new System.Drawing.Font("Arial", 10);
                 lblMontoImp.Size = new Size(360, 20);
                 lblMontoImp.Location = new Point(400, 420);
                 panelInfo.Controls.Add(lblMontoImp);
 
                 Label lblPorcentajeRet = new Label();
                 lblPorcentajeRet.Text = "Porcentaje de Retención: " + retencion + "%";
-                lblPorcentajeRet.Font = new Font("Arial", 10);
+                lblPorcentajeRet.Font = new System.Drawing.Font("Arial", 10);
                 lblPorcentajeRet.Size = new Size(360, 20);
                 lblPorcentajeRet.Location = new Point(40, 440);
                 panelInfo.Controls.Add(lblPorcentajeRet);
 
                 Label lblMontoRet = new Label();
                 lblMontoRet.Text = "Monto Retención: $" + montoRetencion.ToString("N2");
-                lblMontoRet.Font = new Font("Arial", 10);
+                lblMontoRet.Font = new System.Drawing.Font("Arial", 10);
                 lblMontoRet.Size = new Size(360, 20);
                 lblMontoRet.Location = new Point(400, 440);
                 panelInfo.Controls.Add(lblMontoRet);
@@ -391,15 +395,15 @@ namespace Presentation
                 // Monto Final
                 Label lblMontoFinalTitulo = new Label();
                 lblMontoFinalTitulo.Text = "MONTO FINAL A PAGAR";
-                lblMontoFinalTitulo.Font = new Font("Arial", 14, FontStyle.Bold);
+                lblMontoFinalTitulo.Font = new System.Drawing.Font("Arial", 14, FontStyle.Bold);
                 lblMontoFinalTitulo.Size = new Size(760, 30);
                 lblMontoFinalTitulo.Location = new Point(20, 480);
                 lblMontoFinalTitulo.TextAlign = ContentAlignment.MiddleCenter;
                 panelInfo.Controls.Add(lblMontoFinalTitulo);
 
                 Label lblMontoFinal = new Label();
-                lblMontoFinal.Text = "$" + montoFinal.ToString("N2");
-                lblMontoFinal.Font = new Font("Arial", 16, FontStyle.Bold);
+                lblMontoFinal.Text = "Q" + montoFinal.ToString("N2");
+                lblMontoFinal.Font = new System.Drawing.Font("Arial", 16, FontStyle.Bold);
                 lblMontoFinal.Size = new Size(760, 40);
                 lblMontoFinal.Location = new Point(20, 510);
                 lblMontoFinal.TextAlign = ContentAlignment.MiddleCenter;
@@ -408,7 +412,7 @@ namespace Presentation
                 // Pie de página
                 Label lblNotasPie = new Label();
                 lblNotasPie.Text = "Esta constancia no tiene validez fiscal. Solo es un documento informativo para control interno.";
-                lblNotasPie.Font = new Font("Arial", 8, FontStyle.Italic);
+                lblNotasPie.Font = new System.Drawing.Font("Arial", 8, FontStyle.Italic);
                 lblNotasPie.Size = new Size(760, 20);
                 lblNotasPie.Location = new Point(20, 560);
                 lblNotasPie.TextAlign = ContentAlignment.MiddleCenter;
@@ -419,17 +423,6 @@ namespace Presentation
                 panelBotones.Size = new Size(760, 50);
                 panelBotones.Location = new Point(20, 590);
                 panelInfo.Controls.Add(panelBotones);
-
-                // Botón para imprimir
-                Button btnImprimir = new Button();
-                btnImprimir.Text = "Imprimir";
-                btnImprimir.Size = new Size(100, 30);
-                btnImprimir.Location = new Point(220, 10);
-                btnImprimir.Click += (s, evt) =>
-                {
-                    MessageBox.Show("Funcionalidad de impresión no implementada en este ejemplo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                };
-                panelBotones.Controls.Add(btnImprimir);
 
                 // Botón para guardar como imagen
                 Button btnGuardarImagen = new Button();
@@ -455,7 +448,7 @@ namespace Presentation
                             using (Bitmap bitmap = new Bitmap(panelInfo.Width, panelInfo.Height))
                             {
                                 // Dibujar el panel en el bitmap
-                                panelInfo.DrawToBitmap(bitmap, new Rectangle(0, 0, panelInfo.Width, panelInfo.Height));
+                                panelInfo.DrawToBitmap(bitmap, new System.Drawing.Rectangle(0, 0, panelInfo.Width, panelInfo.Height));
 
                                 // Guardar el bitmap como archivo PNG
                                 bitmap.Save(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Png);
@@ -491,44 +484,64 @@ namespace Presentation
                     // Si el usuario selecciona una ubicación y nombre de archivo
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
+                        string path = saveFileDialog.FileName;
+
                         try
                         {
-                            // Esta implementación requiere agregar el paquete NuGet "iTextSharp"
-                            // Esta es una parte del código que dependerá de la biblioteca que uses para generar PDFs
-                            MessageBox.Show("Para implementar la exportación a PDF, necesitas agregar la biblioteca iTextSharp u otra similar a tu proyecto. " +
-                                           "Se recomienda usar NuGet para agregar 'iTextSharp' o 'PdfSharp' como referencia.",
-                                           "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            // Crear documento PDF
+                            Document pdfDoc = new Document(PageSize.A4, 50, 50, 60, 60);
 
-                            // Aquí iría la implementación para guardar como PDF usando la biblioteca que elijas
-                            // El siguiente código es un ejemplo comentado que usaría iTextSharp:
-                            /*
-                            using (FileStream fs = new FileStream(saveFileDialog.FileName, FileMode.Create))
+                            using (FileStream stream = new FileStream(path, FileMode.Create))
                             {
-                                // Crear el documento PDF
-                                Document document = new Document(PageSize.A4);
-                                PdfWriter writer = PdfWriter.GetInstance(document, fs);
-                                document.Open();
+                                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                                pdfDoc.Open();
 
-                                // Agregar título
-                                document.Add(new Paragraph("CONSTANCIA DE PAGO", 
-                                    new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD)));
+                                // Fuente personalizada
+                                var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18);
+                                var normalFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
 
-                                // Agregar fecha
-                                document.Add(new Paragraph($"Fecha de Emisión: {fechaActual}", 
-                                    new Font(Font.FontFamily.HELVETICA, 10)));
+                                // Título
+                                Paragraph titulo = new Paragraph("CONSTANCIA DE PAGO", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16));
+                                titulo.Alignment = Element.ALIGN_CENTER;
+                                pdfDoc.Add(titulo);
 
-                                // Añadir la información del proyecto, avance y cálculos...
+                                pdfDoc.Add(new Paragraph("Fecha de Emisión: " + fechaActual));
+                                pdfDoc.Add(new Paragraph("\nINFORMACIÓN DEL PROYECTO", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12)));
+                                pdfDoc.Add(new Paragraph("ID Proyecto: " + idProyecto));
+                                pdfDoc.Add(new Paragraph("Nombre: " + proyectoNombre));
+                                pdfDoc.Add(new Paragraph("Descripción: " + proyectoDescripcion));
+                                pdfDoc.Add(new Paragraph("Ubicación: " + ubicacion));
+                                pdfDoc.Add(new Paragraph("Cantidad Estimada: " + cantidadEstimada));
+                                pdfDoc.Add(new Paragraph("Precio Unitario: $" + precioUnitario));
 
-                                document.Close();
+                                pdfDoc.Add(new Paragraph("\nINFORMACIÓN DE AVANCE", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12)));
+                                pdfDoc.Add(new Paragraph("ID Avance: " + idAvance));
+                                pdfDoc.Add(new Paragraph("Cantidad Reportada: " + cantidadReportada));
+                                pdfDoc.Add(new Paragraph("Descripción del Avance: " + descripcionAvance));
+
+                                pdfDoc.Add(new Paragraph("\nDETALLES DEL CÁLCULO", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12)));
+                                pdfDoc.Add(new Paragraph("Monto Base: Q" + montoBase.ToString("N2")));
+                                pdfDoc.Add(new Paragraph("Porcentaje de Impuesto: " + impuesto + "%"));
+                                pdfDoc.Add(new Paragraph("Monto Impuesto: Q" + montoImpuesto.ToString("N2")));
+                                pdfDoc.Add(new Paragraph("Porcentaje de Retención: " + retencion + "%"));
+                                pdfDoc.Add(new Paragraph("Monto Retención: Q" + montoRetencion.ToString("N2")));
+
+                                pdfDoc.Add(new Paragraph("\nMONTO FINAL A PAGAR", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14)));
+                                pdfDoc.Add(new Paragraph("Q" + montoFinal.ToString("N2"), FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12)));
+
+                                pdfDoc.Close();
+                                stream.Close();
                             }
-                            MessageBox.Show($"Constancia guardada como PDF en: {saveFileDialog.FileName}", 
-                                           "Guardar exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            */
+
+                            // Mostrar mensaje de éxito
+                            MessageBox.Show("PDF generado correctamente en:\n" + path, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            // Abrir el PDF automáticamente
+                            Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show($"Error al guardar el PDF: {ex.Message}",
-                                           "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Ocurrió un error al generar el PDF:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 };
