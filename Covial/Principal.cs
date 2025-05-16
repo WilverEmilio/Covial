@@ -60,7 +60,9 @@ namespace Presentation
 
         private void Principal_Load(object sender, EventArgs e)
         {
+            GestionanUsuarios();
 
+            this.label1.Text = "Rol: " + this.rol;
         }
 
         private void contratistasToolStripMenuItem_Click(object sender, EventArgs e)
@@ -123,5 +125,45 @@ namespace Presentation
             frm.MdiParent = this;
             frm.Show();
         }
+
+        private void reportesDeProyectosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Reportes.ReporteProyectos reporteProyectos = Reportes.ReporteProyectos.GetInstancia();
+            reporteProyectos.MdiParent = this;
+            reporteProyectos.Show();
+        }
+
+        private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void GestionanUsuarios()
+        {
+            if (rol == "Administrador")
+            {
+                this.mantenimientoToolStripMenuItem.Enabled = true;
+                this.gestiónDeProgramasYProyectosToolStripMenuItem.Enabled = true;
+                this.gestiónFinancieraToolStripMenuItem.Enabled = true;
+                this.consultasReportesToolStripMenuItem.Enabled = true;
+            }
+            else if (rol == "Supervisor")
+            {
+                this.mantenimientoToolStripMenuItem.Enabled = false;
+                this.gestiónDeProgramasYProyectosToolStripMenuItem.Enabled = true;
+                this.gestiónFinancieraToolStripMenuItem.Enabled = false;
+                this.consultasReportesToolStripMenuItem.Enabled = false;
+                this.programasToolStripMenuItem.Enabled = false;
+                this.proyectosToolStripMenuItem.Enabled = false;
+            }
+            else if (rol == "Consulta")
+            {
+                this.mantenimientoToolStripMenuItem.Enabled = false;
+                this.gestiónDeProgramasYProyectosToolStripMenuItem.Enabled = false;
+                this.gestiónFinancieraToolStripMenuItem.Enabled = false;
+                this.consultasReportesToolStripMenuItem.Enabled = false;
+            }
+        }
+
     }
 }

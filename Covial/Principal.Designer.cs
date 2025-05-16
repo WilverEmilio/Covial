@@ -28,10 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             menuStrip1 = new MenuStrip();
             covialToolStripMenuItem = new ToolStripMenuItem();
-            salirToolStripMenuItem = new ToolStripMenuItem();
             cerrarSesiónToolStripMenuItem = new ToolStripMenuItem();
             mantenimientoToolStripMenuItem = new ToolStripMenuItem();
             usuariosToolStripMenuItem = new ToolStripMenuItem();
@@ -46,24 +44,17 @@
             órdenesDePagoToolStripMenuItem = new ToolStripMenuItem();
             consultasReportesToolStripMenuItem = new ToolStripMenuItem();
             reportesDeProyectosToolStripMenuItem = new ToolStripMenuItem();
-            avancesDeProyectosToolStripMenuItem = new ToolStripMenuItem();
-            resumenDeÓrdenesDePagoToolStripMenuItem = new ToolStripMenuItem();
-            consultasPorContratistasFechasEstadoToolStripMenuItem = new ToolStripMenuItem();
-            verToolStripMenuItem = new ToolStripMenuItem();
-            ventanasToolStripMenuItem = new ToolStripMenuItem();
-            ayudaToolStripMenuItem = new ToolStripMenuItem();
             toolStrip1 = new ToolStrip();
-            toolStripButton1 = new ToolStripButton();
             statusStrip1 = new StatusStrip();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
+            toolStripProgressBar1 = new ToolStripProgressBar();
             menuStrip1.SuspendLayout();
-            toolStrip1.SuspendLayout();
             statusStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { covialToolStripMenuItem, mantenimientoToolStripMenuItem, gestiónDeProgramasYProyectosToolStripMenuItem, gestiónFinancieraToolStripMenuItem, consultasReportesToolStripMenuItem, verToolStripMenuItem, ventanasToolStripMenuItem, ayudaToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { covialToolStripMenuItem, mantenimientoToolStripMenuItem, gestiónDeProgramasYProyectosToolStripMenuItem, gestiónFinancieraToolStripMenuItem, consultasReportesToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1035, 24);
@@ -73,23 +64,16 @@
             // 
             // covialToolStripMenuItem
             // 
-            covialToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { salirToolStripMenuItem, cerrarSesiónToolStripMenuItem });
+            covialToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cerrarSesiónToolStripMenuItem });
             covialToolStripMenuItem.Name = "covialToolStripMenuItem";
             covialToolStripMenuItem.Size = new Size(52, 20);
             covialToolStripMenuItem.Text = "Covial";
             // 
-            // salirToolStripMenuItem
-            // 
-            salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            salirToolStripMenuItem.Size = new Size(143, 22);
-            salirToolStripMenuItem.Text = "Salir";
-            salirToolStripMenuItem.Click += salirToolStripMenuItem_Click;
-            // 
             // cerrarSesiónToolStripMenuItem
             // 
             cerrarSesiónToolStripMenuItem.Name = "cerrarSesiónToolStripMenuItem";
-            cerrarSesiónToolStripMenuItem.Size = new Size(143, 22);
-            cerrarSesiónToolStripMenuItem.Text = "Cerrar Sesión";
+            cerrarSesiónToolStripMenuItem.Size = new Size(96, 22);
+            cerrarSesiónToolStripMenuItem.Text = "Salir";
             cerrarSesiónToolStripMenuItem.Click += cerrarSesiónToolStripMenuItem_Click;
             // 
             // mantenimientoToolStripMenuItem
@@ -165,13 +149,13 @@
             // órdenesDePagoToolStripMenuItem
             // 
             órdenesDePagoToolStripMenuItem.Name = "órdenesDePagoToolStripMenuItem";
-            órdenesDePagoToolStripMenuItem.Size = new Size(180, 22);
+            órdenesDePagoToolStripMenuItem.Size = new Size(164, 22);
             órdenesDePagoToolStripMenuItem.Text = "Órdenes de Pago";
             órdenesDePagoToolStripMenuItem.Click += órdenesDePagoToolStripMenuItem_Click;
             // 
             // consultasReportesToolStripMenuItem
             // 
-            consultasReportesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { reportesDeProyectosToolStripMenuItem, avancesDeProyectosToolStripMenuItem, resumenDeÓrdenesDePagoToolStripMenuItem, consultasPorContratistasFechasEstadoToolStripMenuItem });
+            consultasReportesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { reportesDeProyectosToolStripMenuItem });
             consultasReportesToolStripMenuItem.Name = "consultasReportesToolStripMenuItem";
             consultasReportesToolStripMenuItem.Size = new Size(128, 20);
             consultasReportesToolStripMenuItem.Text = "Consultas / Reportes";
@@ -179,48 +163,12 @@
             // reportesDeProyectosToolStripMenuItem
             // 
             reportesDeProyectosToolStripMenuItem.Name = "reportesDeProyectosToolStripMenuItem";
-            reportesDeProyectosToolStripMenuItem.Size = new Size(296, 22);
-            reportesDeProyectosToolStripMenuItem.Text = "Reportes de Proyectos";
-            // 
-            // avancesDeProyectosToolStripMenuItem
-            // 
-            avancesDeProyectosToolStripMenuItem.Name = "avancesDeProyectosToolStripMenuItem";
-            avancesDeProyectosToolStripMenuItem.Size = new Size(296, 22);
-            avancesDeProyectosToolStripMenuItem.Text = "Avances de Proyectos";
-            // 
-            // resumenDeÓrdenesDePagoToolStripMenuItem
-            // 
-            resumenDeÓrdenesDePagoToolStripMenuItem.Name = "resumenDeÓrdenesDePagoToolStripMenuItem";
-            resumenDeÓrdenesDePagoToolStripMenuItem.Size = new Size(296, 22);
-            resumenDeÓrdenesDePagoToolStripMenuItem.Text = "Resumen de Órdenes de Pago";
-            // 
-            // consultasPorContratistasFechasEstadoToolStripMenuItem
-            // 
-            consultasPorContratistasFechasEstadoToolStripMenuItem.Name = "consultasPorContratistasFechasEstadoToolStripMenuItem";
-            consultasPorContratistasFechasEstadoToolStripMenuItem.Size = new Size(296, 22);
-            consultasPorContratistasFechasEstadoToolStripMenuItem.Text = "Consultas por Contratistas, Fechas, Estado";
-            // 
-            // verToolStripMenuItem
-            // 
-            verToolStripMenuItem.Name = "verToolStripMenuItem";
-            verToolStripMenuItem.Size = new Size(35, 20);
-            verToolStripMenuItem.Text = "Ver";
-            // 
-            // ventanasToolStripMenuItem
-            // 
-            ventanasToolStripMenuItem.Name = "ventanasToolStripMenuItem";
-            ventanasToolStripMenuItem.Size = new Size(66, 20);
-            ventanasToolStripMenuItem.Text = "Ventanas";
-            // 
-            // ayudaToolStripMenuItem
-            // 
-            ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
-            ayudaToolStripMenuItem.Size = new Size(53, 20);
-            ayudaToolStripMenuItem.Text = "Ayuda";
+            reportesDeProyectosToolStripMenuItem.Size = new Size(120, 22);
+            reportesDeProyectosToolStripMenuItem.Text = "Reportes";
+            reportesDeProyectosToolStripMenuItem.Click += reportesDeProyectosToolStripMenuItem_Click;
             // 
             // toolStrip1
             // 
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton1 });
             toolStrip1.Location = new Point(0, 24);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1035, 25);
@@ -228,29 +176,26 @@
             toolStrip1.Text = "toolStrip1";
             toolStrip1.ItemClicked += toolStrip1_ItemClicked;
             // 
-            // toolStripButton1
-            // 
-            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
-            toolStripButton1.ImageTransparentColor = Color.Magenta;
-            toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new Size(23, 22);
-            toolStripButton1.Text = "toolStripButton1";
-            // 
             // statusStrip1
             // 
-            statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1 });
+            statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1, toolStripProgressBar1 });
             statusStrip1.Location = new Point(0, 505);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Size = new Size(1035, 22);
             statusStrip1.TabIndex = 2;
             statusStrip1.Text = "statusStrip1";
+            statusStrip1.ItemClicked += statusStrip1_ItemClicked;
             // 
             // toolStripStatusLabel1
             // 
             toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            toolStripStatusLabel1.Size = new Size(118, 17);
-            toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            toolStripStatusLabel1.Size = new Size(48, 17);
+            toolStripStatusLabel1.Text = "COVIAL";
+            // 
+            // toolStripProgressBar1
+            // 
+            toolStripProgressBar1.Name = "toolStripProgressBar1";
+            toolStripProgressBar1.Size = new Size(100, 16);
             // 
             // Principal
             // 
@@ -268,8 +213,6 @@
             InputLanguageChanging += Principal_InputLanguageChanging;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
-            toolStrip1.ResumeLayout(false);
-            toolStrip1.PerformLayout();
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
             ResumeLayout(false);
@@ -280,7 +223,6 @@
 
         private MenuStrip menuStrip1;
         private ToolStripMenuItem covialToolStripMenuItem;
-        private ToolStripMenuItem salirToolStripMenuItem;
         private ToolStripMenuItem cerrarSesiónToolStripMenuItem;
         private ToolStripMenuItem mantenimientoToolStripMenuItem;
         private ToolStripMenuItem usuariosToolStripMenuItem;
@@ -295,15 +237,9 @@
         private ToolStripMenuItem órdenesDePagoToolStripMenuItem;
         private ToolStripMenuItem consultasReportesToolStripMenuItem;
         private ToolStripMenuItem reportesDeProyectosToolStripMenuItem;
-        private ToolStripMenuItem avancesDeProyectosToolStripMenuItem;
-        private ToolStripMenuItem resumenDeÓrdenesDePagoToolStripMenuItem;
-        private ToolStripMenuItem consultasPorContratistasFechasEstadoToolStripMenuItem;
-        private ToolStripMenuItem verToolStripMenuItem;
-        private ToolStripMenuItem ventanasToolStripMenuItem;
-        private ToolStripMenuItem ayudaToolStripMenuItem;
         private ToolStrip toolStrip1;
-        private ToolStripButton toolStripButton1;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel toolStripStatusLabel1;
+        private ToolStripProgressBar toolStripProgressBar1;
     }
 }

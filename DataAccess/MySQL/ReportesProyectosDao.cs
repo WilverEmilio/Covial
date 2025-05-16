@@ -212,6 +212,43 @@ namespace DataAccess.MySQL
             return dt;
         }
 
+        public DataTable FiltrarProyectos(string estado, string programa, string contratista)
+        {
+            DataTable dt = new DataTable();
+            using (var conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = @"
+            SELECT 
+                p.proyecto_id,
+                p.nombre_proyecto,
+                pr.nombre_programa,
+                c.nombre_contratista,
+                p.descripcion,
+                p.presupuesto_estimado,
+                p.estado,
+                p.fecha_inicio_prevista,
+                p.fecha_fin_prevista
+            FROM proyectos p
+            INNER JOIN programas pr ON p.programa_id = pr.programa_id
+            LEFT JOIN contratistas c ON p.contratista_id = c.contratista_id
+            WHERE (@estado IS NULL OR p.estado = @estado)
+              AND (@programa IS NULL OR pr.nombre_programa = @programa)
+              AND (@contratista IS NULL OR c.nombre_contratista = @contratista);";
 
+                using (var cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@estado", string.IsNullOrEmpty(estado) ? null : estado);
+                    cmd.Parameters.AddWithValue("@programa", string.IsNullOrEmpty(programa) ? null : programa);
+                    cmd.Parameters.AddWithValue("@contratista", string.IsNullOrEmpty(contratista) ? null : contratista);
+
+                    using (var adapter = new MySqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(dt);
+                    }
+                }
+            }
+            return dt;
+        }
     }
 }

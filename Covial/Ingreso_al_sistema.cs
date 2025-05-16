@@ -89,13 +89,13 @@ namespace Covial
                 Bienvenida bienvenida = new Bienvenida();
                 bienvenida.usuario_id = Datos.Rows[0][0].ToString();
                 bienvenida.nombre_usuario = Datos.Rows[0][1].ToString();
-                bienvenida.rol = Datos.Rows[0][2].ToString();
+                bienvenida.rol = Datos.Rows[0][3].ToString();
                 bienvenida.ShowDialog();
 
                 Principal principal = new Principal();
                 principal.usuario_id = Datos.Rows[0][0].ToString();
                 principal.nombre_usuario = Datos.Rows[0][1].ToString();
-                principal.rol = Datos.Rows[0][2].ToString();
+                principal.rol = Datos.Rows[0][3].ToString();
                 principal.Show();
                 principal.FormClosed += (s, args) => this.Close();
             }

@@ -97,7 +97,7 @@ namespace Presentation
         private void OculatrColumnas()
         {
             this.datosListar.Columns[0].Visible = false;
-            this.datosListar.Columns[1].Visible = false;
+            this.datosListar.Columns[3].Visible = false;
         }
 
         //Metodo Mostrar
