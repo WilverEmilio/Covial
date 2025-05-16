@@ -1,6 +1,6 @@
 ﻿namespace Presentation
 {
-    partial class SeleccionarProyecto
+    partial class SeleccionarProyectoPago
     {
         /// <summary>
         /// Required designer variable.
@@ -46,10 +46,10 @@
             // panelTabla
             // 
             panelTabla.Controls.Add(datosListar);
-            panelTabla.Location = new Point(4, 106);
+            panelTabla.Location = new Point(2, 105);
             panelTabla.Name = "panelTabla";
             panelTabla.Size = new Size(788, 193);
-            panelTabla.TabIndex = 11;
+            panelTabla.TabIndex = 14;
             // 
             // datosListar
             // 
@@ -64,7 +64,7 @@
             datosListar.ReadOnly = true;
             datosListar.Size = new Size(764, 167);
             datosListar.TabIndex = 0;
-            datosListar.DoubleClick += datosListar_DoubleClick;
+            datosListar.DoubleClick += datosListar_DoubleClick_1;
             // 
             // Eliminar
             // 
@@ -77,10 +77,10 @@
             groupBuscar.Controls.Add(lblTotal);
             groupBuscar.Controls.Add(textBuscar);
             groupBuscar.Controls.Add(lblBuscar);
-            groupBuscar.Location = new Point(6, 45);
+            groupBuscar.Location = new Point(4, 44);
             groupBuscar.Name = "groupBuscar";
             groupBuscar.Size = new Size(788, 55);
-            groupBuscar.TabIndex = 10;
+            groupBuscar.TabIndex = 13;
             groupBuscar.TabStop = false;
             // 
             // lblTotal
@@ -100,7 +100,7 @@
             textBuscar.Name = "textBuscar";
             textBuscar.Size = new Size(400, 21);
             textBuscar.TabIndex = 1;
-            textBuscar.TextChanged += textBuscar_TextChanged;
+            textBuscar.TextChanged += textBuscar_TextChanged_1;
             // 
             // lblBuscar
             // 
@@ -116,10 +116,10 @@
             // 
             panel_barra.BackColor = Color.FromArgb(48, 157, 228);
             panel_barra.Controls.Add(lblTitulo);
-            panel_barra.Location = new Point(1, 0);
+            panel_barra.Location = new Point(-1, -1);
             panel_barra.Name = "panel_barra";
             panel_barra.Size = new Size(816, 39);
-            panel_barra.TabIndex = 9;
+            panel_barra.TabIndex = 12;
             // 
             // lblTitulo
             // 
@@ -131,17 +131,17 @@
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "Listado de proyectos";
             // 
-            // SeleccionarProyecto
+            // SeleccionarProyectoPago
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 313);
+            ClientSize = new Size(800, 323);
             Controls.Add(panelTabla);
             Controls.Add(groupBuscar);
             Controls.Add(panel_barra);
-            Name = "SeleccionarProyecto";
+            Name = "SeleccionarProyectoPago";
             Text = "Seleccionar Proyecto";
-            Load += SeleccionarProyecto_Load;
+            Load += SeleccionarProyectoPago_Load_1;
             panelTabla.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)datosListar).EndInit();
             groupBuscar.ResumeLayout(false);

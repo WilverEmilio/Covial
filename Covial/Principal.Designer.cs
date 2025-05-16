@@ -165,8 +165,9 @@
             // órdenesDePagoToolStripMenuItem
             // 
             órdenesDePagoToolStripMenuItem.Name = "órdenesDePagoToolStripMenuItem";
-            órdenesDePagoToolStripMenuItem.Size = new Size(164, 22);
+            órdenesDePagoToolStripMenuItem.Size = new Size(180, 22);
             órdenesDePagoToolStripMenuItem.Text = "Órdenes de Pago";
+            órdenesDePagoToolStripMenuItem.Click += órdenesDePagoToolStripMenuItem_Click;
             // 
             // consultasReportesToolStripMenuItem
             // 

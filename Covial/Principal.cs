@@ -113,5 +113,15 @@ namespace Presentation
             frm.MdiParent = this;
             frm.Show();
         }
+
+        private void órdenesDePagoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Ingresar_OrdenPago frm = Ingresar_OrdenPago.GetInstancia();
+            //frm.UsuarioId = this.usuario_id;
+            //frm.NombreUsuario = this.nombre_usuario;
+            //frm.Rol = this.rol;
+            frm.MdiParent = this;
+            frm.Show();
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Presentation
 {
-    partial class SeleccionarProyecto
+    partial class SeleccionarAvance
     {
         /// <summary>
         /// Required designer variable.
@@ -46,10 +46,10 @@
             // panelTabla
             // 
             panelTabla.Controls.Add(datosListar);
-            panelTabla.Location = new Point(4, 106);
+            panelTabla.Location = new Point(1, 106);
             panelTabla.Name = "panelTabla";
             panelTabla.Size = new Size(788, 193);
-            panelTabla.TabIndex = 11;
+            panelTabla.TabIndex = 14;
             // 
             // datosListar
             // 
@@ -77,10 +77,10 @@
             groupBuscar.Controls.Add(lblTotal);
             groupBuscar.Controls.Add(textBuscar);
             groupBuscar.Controls.Add(lblBuscar);
-            groupBuscar.Location = new Point(6, 45);
+            groupBuscar.Location = new Point(3, 45);
             groupBuscar.Name = "groupBuscar";
             groupBuscar.Size = new Size(788, 55);
-            groupBuscar.TabIndex = 10;
+            groupBuscar.TabIndex = 13;
             groupBuscar.TabStop = false;
             // 
             // lblTotal
@@ -116,10 +116,10 @@
             // 
             panel_barra.BackColor = Color.FromArgb(48, 157, 228);
             panel_barra.Controls.Add(lblTitulo);
-            panel_barra.Location = new Point(1, 0);
+            panel_barra.Location = new Point(-2, 0);
             panel_barra.Name = "panel_barra";
             panel_barra.Size = new Size(816, 39);
-            panel_barra.TabIndex = 9;
+            panel_barra.TabIndex = 12;
             // 
             // lblTitulo
             // 
@@ -127,21 +127,21 @@
             lblTitulo.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold);
             lblTitulo.Location = new Point(12, 8);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(161, 18);
+            lblTitulo.Size = new Size(150, 18);
             lblTitulo.TabIndex = 0;
-            lblTitulo.Text = "Listado de proyectos";
+            lblTitulo.Text = "Listado de avances";
             // 
-            // SeleccionarProyecto
+            // SeleccionarAvance
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 313);
+            ClientSize = new Size(800, 321);
             Controls.Add(panelTabla);
             Controls.Add(groupBuscar);
             Controls.Add(panel_barra);
-            Name = "SeleccionarProyecto";
-            Text = "Seleccionar Proyecto";
-            Load += SeleccionarProyecto_Load;
+            Name = "SeleccionarAvance";
+            Text = "Seleccionar Avance";
+            Load += SeleccionarAvance_Load;
             panelTabla.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)datosListar).EndInit();
             groupBuscar.ResumeLayout(false);
