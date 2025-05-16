@@ -52,145 +52,179 @@ namespace DataAccess.MySQL
         //Metodo para insertar una orden de pago
         public string Insertar(OrdenPagoDao ordenPago)
         {
-            string respuesta = "";
-            MySqlConnection sqlConnection = GetConnection();
+            string rpta = "";
+            using (MySqlConnection SqlCon = new MySqlConnection(connectionString))
             try
             {
-                sqlConnection.Open();
-                MySqlCommand sqlCommand = new MySqlCommand("sp_insertar_orden_pago", sqlConnection);
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                sqlCommand.Parameters.AddWithValue("p_proyecto_id", ordenPago.Proyecto_id);
-                sqlCommand.Parameters.AddWithValue("p_contratista_id", ordenPago.Contratista_id);
-                sqlCommand.Parameters.AddWithValue("p_fecha_emision", ordenPago.Fecha_emision);
-                sqlCommand.Parameters.AddWithValue("p_monto", ordenPago.Monto);
-                sqlCommand.Parameters.AddWithValue("p_descripcion", ordenPago.Descripcion);
-                sqlCommand.Parameters.AddWithValue("p_estado", ordenPago.Estado);
-                sqlCommand.Parameters.AddWithValue("p_fecha_creacion", ordenPago.Fecha_creacion);
-                sqlCommand.Parameters.AddWithValue("p_creada_por", ordenPago.Creada_por);
-                respuesta = sqlCommand.ExecuteNonQuery() == 1 ? "OK" : "Error al insertar la orden de pago";
-            }
-            catch (Exception ex)
-            {
-                respuesta = ex.Message;
-            }
-            finally
-            {
-                if (sqlConnection.State == ConnectionState.Open)
-                    sqlConnection.Close();
-            }
-            return respuesta;
+                    SqlCon.Open();
+                    string query = @"INSERT INTO ordenespago (proyecto_id, contratista_id, fecha_emision, monto, descripcion, estado, fecha_creacion, creada_por) VALUES (@proyecto_id, @contratista_id, @fecha_emision, @monto, @descripcion, @estado, @fecha_creacion, @creada_por)";
+                    using (MySqlCommand SqlCmd = new MySqlCommand(query, SqlCon))
+
+                    {
+                        SqlCmd.Parameters.AddWithValue("@proyecto_id", ordenPago.Proyecto_id);
+                        SqlCmd.Parameters.AddWithValue("@contratista_id", ordenPago.Contratista_id);
+                        SqlCmd.Parameters.AddWithValue("@fecha_emision", ordenPago.Fecha_emision);
+                        SqlCmd.Parameters.AddWithValue("@monto", ordenPago.Monto);
+                        SqlCmd.Parameters.AddWithValue("@descripcion", ordenPago.Descripcion);
+                        SqlCmd.Parameters.AddWithValue("@estado", ordenPago.Estado);
+                        SqlCmd.Parameters.AddWithValue("@fecha_creacion", ordenPago.Fecha_creacion);
+                        SqlCmd.Parameters.AddWithValue("@creada_por", ordenPago.Creada_por);
+                        rpta = SqlCmd.ExecuteNonQuery() == 1 ? "OK" : "Error al insertar la orden de pago";
+                    }
+               }
+                catch (Exception ex)
+                {
+                    rpta = ex.Message;
+                }
+                finally
+                {
+                    SqlCon.Close();
+                }
+            return rpta;
         }
         //Metodo para editar una orden de pago
         public string Editar(OrdenPagoDao ordenPago)
         {
-            string respuesta = "";
-            MySqlConnection sqlConnection = GetConnection();
-            try
-            {
-                sqlConnection.Open();
-                MySqlCommand sqlCommand = new MySqlCommand("sp_editar_orden_pago", sqlConnection);
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                sqlCommand.Parameters.AddWithValue("p_orden_pago_id", ordenPago.Orden_pago_id);
-                sqlCommand.Parameters.AddWithValue("p_proyecto_id", ordenPago.Proyecto_id);
-                sqlCommand.Parameters.AddWithValue("p_contratista_id", ordenPago.Contratista_id);
-                sqlCommand.Parameters.AddWithValue("p_fecha_emision", ordenPago.Fecha_emision);
-                sqlCommand.Parameters.AddWithValue("p_monto", ordenPago.Monto);
-                sqlCommand.Parameters.AddWithValue("p_descripcion", ordenPago.Descripcion);
-                sqlCommand.Parameters.AddWithValue("p_estado", ordenPago.Estado);
-                respuesta = sqlCommand.ExecuteNonQuery() == 1 ? "OK" : "Error al editar la orden de pago";
-            }
-            catch (Exception ex)
-            {
-                respuesta = ex.Message;
-            }
-            finally
-            {
-                if (sqlConnection.State == ConnectionState.Open)
-                    sqlConnection.Close();
-            }
-            return respuesta;
+            string rpta = "";
+            using (MySqlConnection SqlCon = new MySqlConnection(connectionString))
+                try
+                {
+                    SqlCon.Open();
+                    string query = @"UPDATE orden_pago SET proyecto_id=@proyecto_id, contratista_id=@contratista_id, fecha_emision=@fecha_emision, monto=@monto, descripcion=@descripcion, estado=@estado WHERE orden_pago_id=@orden_pago_id";
+                    using (MySqlCommand SqlCmd = new MySqlCommand(query, SqlCon))
+                    {
+                        SqlCmd.Parameters.AddWithValue("@orden_pago_id", ordenPago.Orden_pago_id);
+                        SqlCmd.Parameters.AddWithValue("@proyecto_id", ordenPago.Proyecto_id);
+                        SqlCmd.Parameters.AddWithValue("@contratista_id", ordenPago.Contratista_id);
+                        SqlCmd.Parameters.AddWithValue("@fecha_emision", ordenPago.Fecha_emision);
+                        SqlCmd.Parameters.AddWithValue("@monto", ordenPago.Monto);
+                        SqlCmd.Parameters.AddWithValue("@descripcion", ordenPago.Descripcion);
+                        SqlCmd.Parameters.AddWithValue("@estado", ordenPago.Estado);
+                        rpta = SqlCmd.ExecuteNonQuery() == 1 ? "OK" : "Error al editar la orden de pago";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    rpta = ex.Message;
+                }
+                finally
+                {
+                    SqlCon.Close();
+                }
+            return rpta;
         }
 
         //Metodo para eliminar una orden de pago
         public string Eliminar(OrdenPagoDao ordenPagoDao)
         {
             string respuesta = "";
-            MySqlConnection sqlConnection = GetConnection();
-            try
+            using (MySqlConnection SqlCon = new MySqlConnection(connectionString))
             {
-                sqlConnection.Open();
-                MySqlCommand sqlCommand = new MySqlCommand("sp_eliminar_orden_pago", sqlConnection);
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                sqlCommand.Parameters.AddWithValue("p_orden_pago_id", ordenPagoDao.Orden_pago_id);
-                respuesta = sqlCommand.ExecuteNonQuery() == 1 ? "OK" : "Error al eliminar la orden de pago";
+                SqlCon.Open();
+                try
+                {
+                    string query = "DELETE FROM orden_pago WHERE orden_pago_id=@orden_pago_id";
+                    using (MySqlCommand SqlCmd = new MySqlCommand(query, SqlCon))
+                    {
+                        SqlCmd.Parameters.AddWithValue("@orden_pago_id", ordenPagoDao.Orden_pago_id);
+                        respuesta = SqlCmd.ExecuteNonQuery() == 1 ? "OK" : "Error al eliminar la orden de pago";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    respuesta = ex.Message;
+                }
+                finally
+                {
+                    SqlCon.Close();
+                }
+                return respuesta;
             }
-            catch (Exception ex)
-            {
-                respuesta = ex.Message;
-            }
-            finally
-            {
-                if (sqlConnection.State == ConnectionState.Open)
-                    sqlConnection.Close();
-            }
-            return respuesta;
         }
 
         //Metodo para mostrar una orden de pago
         public DataTable Mostrar()
         {
-            DataTable dtResultado = new DataTable("orden_pago");
-            MySqlConnection sqlConnection = GetConnection();
-            try
+            DataTable dt = new DataTable("ordenespago");
+            using (MySqlConnection SqlCon = new MySqlConnection(connectionString))
             {
-                sqlConnection.Open();
-                MySqlCommand sqlCommand = new MySqlCommand("sp_mostrar_orden_pago", sqlConnection);
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                MySqlDataAdapter sqlDataAdapter = new MySqlDataAdapter(sqlCommand);
-                sqlDataAdapter.Fill(dtResultado);
+                try
+                {
+                    SqlCon.Open();
+                    string query = @"SELECT 
+                                    o.orden_pago_id,
+                                    o.proyecto_id,
+                                    p.nombre_proyecto,
+                                    o.contratista_id,
+                                    c.nombre_contratista,
+                                    o.fecha_emision,
+                                    o.monto,
+                                    o.descripcion,
+                                    o.estado,
+                                    o.fecha_creacion,
+                                    o.creada_por,
+                                    u.nombre_usuario
+                                FROM 
+                                    ordenespago o
+                                INNER JOIN 
+                                    proyectos p ON o.proyecto_id = p.proyecto_id
+                                INNER JOIN
+	                                usuarios u ON o.creada_por = u.usuario_id
+                                INNER JOIN 
+                                    contratistas c ON o.contratista_id = c.contratista_id;";
+                    using (MySqlCommand SqlCmd = new MySqlCommand(query, SqlCon))
+                    {
+                        MySqlDataAdapter sqlDataAdapter = new MySqlDataAdapter(SqlCmd);
+                        sqlDataAdapter.Fill(dt);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    dt = null;
+                }
+                finally
+                {
+                    SqlCon.Close();
+                }
             }
-            catch (Exception ex)
-            {
-                dtResultado = null;
-            }
-            finally
-            {
-                if (sqlConnection.State == ConnectionState.Open)
-                    sqlConnection.Close();
-            }
-            return dtResultado;
+            return dt;
+
         }
 
         //Metodo para buscar una orden de pago
         public DataTable Buscar(OrdenPagoDao ordenPago)
         {
-            DataTable dtResultado = new DataTable("orden_pago");
-            MySqlConnection sqlConnection = GetConnection();
-            try
+            DataTable dt = new DataTable("ordenespago");
+            using (MySqlConnection SqlCon = new MySqlConnection(connectionString))
             {
-                sqlConnection.Open();
-                MySqlCommand sqlCommand = new MySqlCommand("sp_buscar_orden_pago", sqlConnection);
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                sqlCommand.Parameters.AddWithValue("p_textobuscar", ordenPago.Textobuscar);
-                MySqlDataAdapter sqlDataAdapter = new MySqlDataAdapter(sqlCommand);
-                sqlDataAdapter.Fill(dtResultado);
+                try
+                {
+                    SqlCon.Open();
+                    string query = "SELECT * FROM orden_pago WHERE CONCAT(orden_pago_id, ' ', proyecto_id, ' ', contratista_id, ' ', fecha_emision, ' ', monto, ' ', descripcion, ' ', estado) LIKE @textobuscar";
+                    using (MySqlCommand SqlCmd = new MySqlCommand(query, SqlCon))
+                    {
+                        SqlCmd.Parameters.AddWithValue("@textobuscar", ordenPago.Textobuscar);
+                        MySqlDataAdapter sqlDataAdapter = new MySqlDataAdapter(SqlCmd);
+                        sqlDataAdapter.Fill(dt);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    dt = null;
+                }
+                finally
+                {
+                    SqlCon.Close();
+                }
+                return dt;
             }
-            catch (Exception ex)
-            {
-                dtResultado = null;
-            }
-            finally
-            {
-                if (sqlConnection.State == ConnectionState.Open)
-                    sqlConnection.Close();
-            }
-            return dtResultado;
+
         }
 
         //Metodo para mostrar el monto total de las ordenes de pago
         public DataTable MostrarMontoTotal(OrdenPagoDao ordenPagoDao)
         {
-            DataTable dtResultado = new DataTable("orden_pago");
+            DataTable dtResultado = new DataTable("ordenespago");
             MySqlConnection sqlConnection = GetConnection();
             try
             {

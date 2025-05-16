@@ -11,6 +11,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
 using System.Diagnostics;
+using Domain;
 
 namespace Presentation
 {
@@ -18,6 +19,11 @@ namespace Presentation
     {
         private bool IsNuevo = false;
         private bool IsEditar = false;
+
+        //Variables para obtener los datos del usuario
+        public string UsuarioId { get; set; }
+        public string NombreUsuario { get; set; }
+        public string Rol { get; set; }
 
         // Constantes para validaciones
         private const decimal PORCENTAJE_MINIMO_COHERENCIA = 0.8m; // 80% de coherencia mínima
@@ -46,8 +52,93 @@ namespace Presentation
         public Ingresar_OrdenPago()
         {
             InitializeComponent();
+
+            //Asignar a Proyecto
+            this.ttMensaje.SetToolTip(this.textNombreProyecto, "Seleccione el proyecto");
+            this.ttMensaje.SetToolTip(this.textDescripcionProyecto, "Seleccione el proyecto");
+            this.ttMensaje.SetToolTip(this.textUbicacionProyecto, "Seleccione el proyecto");
+            this.ttMensaje.SetToolTip(this.textCantidadEstimada, "Seleccione el proyecto");
+            this.ttMensaje.SetToolTip(this.textPrecioUnitario, "Seleccione el proyecto");
+            this.ttMensaje.SetToolTip(this.textPresupuestoEstimado, "Seleccione el proyecto");
+
+            //Asignar a Avance
+            this.ttMensaje.SetToolTip(this.textIdAvance, "Seleccione el avance");
+            this.ttMensaje.SetToolTip(this.textCantidadR, "Seleccione el avance");
+
+            //Asignar a Información
+            this.ttMensaje.SetToolTip(this.textImpuesto, "Ingrese el porcentaje de impuesto");
+            this.ttMensaje.SetToolTip(this.textRetencion, "Ingrese el porcentaje de retención");
+            this.ttMensaje.SetToolTip(this.textMonto, "Monto total a pagar");
+            this.ttMensaje.SetToolTip(this.textDescripcion, "Descripción del pago");
+        }
+        private void MensajeOk(string mensaje)
+        {
+            MessageBox.Show(mensaje, "Sistema de Gestión de Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void MensajeError(string mensaje)
+        {
+            MessageBox.Show(mensaje, "Sistema de Gestión de Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void Limpiar()
+        {
+
+            //Limpiar campos de texto de Proyecto
+            this.textIdProyecto.Text = string.Empty;
+            this.textNombreProyecto.Text = string.Empty;
+            this.textDescripcionProyecto.Text = string.Empty;
+            this.textUbicacionProyecto.Text = string.Empty;
+            this.textCantidadEstimada.Text = string.Empty;
+            this.textPrecioUnitario.Text = string.Empty;
+            this.textPresupuestoEstimado.Text = string.Empty;
+            //Limpiar campos de texto de Avance
+            this.textIdAvance.Text = string.Empty;
+            this.textCantidadR.Text = string.Empty;
+            this.textDescripcionAvance.Text = string.Empty;
+            //Limpiar campos de texto de Información
+            this.textImpuesto.Text = string.Empty;
+            this.textRetencion.Text = string.Empty;
+            this.textMonto.Text = string.Empty;
+            this.textDescripcion.Text = string.Empty;
+            this.textIdOrdenPago.Text = string.Empty;
+        }
+
+        private void Habilitar(bool valor)
+        {
+            this.textImpuesto.ReadOnly = !valor;
+            this.textRetencion.ReadOnly = !valor;
+            this.textDescripcion.ReadOnly = !valor;
+            this.textMonto.ReadOnly = !valor;
+            this.textEstado.ReadOnly = !valor;
+
+        }
+
+        private void Botones()
+        {
+            if (this.IsNuevo || this.IsEditar)
+            {
+                this.Habilitar(true);
+                this.btnGuardar.Enabled = true;
+                this.btnCancelar.Enabled = true;
+                this.btnNuevo.Enabled = false;
+            }
+            else
+            {
+                this.Habilitar(false);
+                this.btnGuardar.Enabled = false;
+                this.btnCancelar.Enabled = false;
+                this.btnNuevo.Enabled = true;
+            }
+        }
+
+        private void OcultarColumnas()
+        {
+            this.datosListar.Columns[0].Visible = false;
+            this.datosListar.Columns[2].Visible = false;
+            this.datosListar.Columns[4].Visible = false;
+            this.datosListar.Columns[11].Visible = false;
+        }
         private void btnBuscarTipoPrograma_Click(object sender, EventArgs e)
         {
             SeleccionarProyectoPago seleccionarProyectoPago = new SeleccionarProyectoPago();
@@ -78,7 +169,7 @@ namespace Presentation
             seleccionarAvance.ShowDialog();
         }
 
-
+        #region Metodo para pdoer calcular y hacer el recibo
         // Método para validar que solo se ingresen números decimales
         private void ValidarDecimal(object sender, KeyPressEventArgs e)
         {
@@ -553,6 +644,131 @@ namespace Presentation
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al generar la constancia: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        #endregion
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            this.textEstado.Text = "Emitida";
+
+            this.textIdCreadoPor.Text = UsuarioId;
+            this.textCreadoPor.Text = NombreUsuario;
+
+            this.IsNuevo = true;
+            this.IsEditar = false;
+            this.Botones();
+            this.Limpiar();
+            this.Habilitar(true);
+
+        }
+
+        private void Mostrar()
+        {
+            this.datosListar.DataSource = OrdenPagoModel.Mostrar();
+            this.OcultarColumnas();
+            lblTotal.Text = "Total de Registros: " + Convert.ToString(datosListar.Rows.Count);
+        }
+
+        private void Buscar()
+        {
+            this.datosListar.DataSource = OrdenPagoModel.BuscarNombre(this.textBuscar.Text);
+            this.OcultarColumnas();
+            lblTotal.Text = "Total de Registros: " + Convert.ToString(datosListar.Rows.Count);
+        }
+
+        private void Ingresar_OrdenPago_Load(object sender, EventArgs e)
+        {
+            this.Mostrar();
+            this.Habilitar(false);
+            this.Botones();
+        }
+
+        private void textBuscar_TextChanged(object sender, EventArgs e)
+        {
+            this.Buscar();
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string rpta = "";
+                if (this.textImpuesto.Text == string.Empty || this.textDescripcion.Text == string.Empty || this.textRetencion.Text == string.Empty)
+                {
+                    MensajeError("Falta ingresar algunos datos, serán remarcados");
+                    errorIcon.SetError(textImpuesto, "Ingrese el porcentaje de impuesto");
+                    errorIcon.SetError(textRetencion, "Ingrese el porcentaje de retención");
+                    errorIcon.SetError(textDescripcion, "Ingrese la descripción del pago");
+                }
+                else
+                {
+                    if (this.IsNuevo)
+                    {
+                        rpta = OrdenPagoModel.Insertar(Convert.ToInt32(this.textIdProyecto.Text), Convert.ToInt32(this.textIdContratista.Text), Convert.ToDateTime(this.dateTimePicker1.Value), Convert.ToDecimal(this.textMonto.Text), this.textDescripcion.Text, this.textEstado.Text, DateTime.Now, Convert.ToInt32(this.textIdCreadoPor.Text));
+                    }
+                    else
+                    {
+                        rpta = OrdenPagoModel.Editar(Convert.ToInt32(this.textIdOrdenPago.Text), Convert.ToInt32(this.textIdProyecto.Text), Convert.ToInt32(this.textIdContratista.Text), Convert.ToDateTime(this.dateTimePicker1.Value), Convert.ToDecimal(this.textMonto.Text), this.textDescripcion.Text, this.textEstado.Text, DateTime.Now, Convert.ToInt32(this.textIdCreadoPor.Text));
+                    }
+                    if (rpta.Equals("OK"))
+                    {
+                        if (this.IsNuevo)
+                        {
+                            this.MensajeOk("Se insertó de forma correcta el registro: " + textDescripcion.Text);
+                        }
+                        else
+                        {
+                            this.MensajeOk("Se actualizó de forma correcta el registro: " + textDescripcion.Text);
+                        }
+                    }
+                    else
+                    {
+                        MensajeError(rpta);
+                    }
+                    this.IsNuevo = false;
+                    this.IsEditar = false;
+                    this.Botones();
+                    this.Limpiar();
+                    this.Mostrar();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + ex.StackTrace);
+            }
+        }
+
+        private void btnBuscarContratista_Click(object sender, EventArgs e)
+        {
+            SeleccionarContratistaOrdenPago seleccionarContratistaOrdenPago = new SeleccionarContratistaOrdenPago();
+            seleccionarContratistaOrdenPago.ShowDialog();
+        }
+
+        public void setContratista(string idcontratista, string nombrecontratista)
+        {
+            this.textIdContratista.Text = idcontratista;
+            this.textNombreContratista.Text = nombrecontratista;
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.IsEditar = false;
+            this.IsNuevo = false;
+            this.Botones();
+            this.Limpiar();
+            this.Habilitar(false);
+            this.Mostrar();
+        }
+
+        private void datosListar_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == datosListar.Columns["Eliminar"].Index)
+            {
+                DataGridViewCheckBoxCell ChEliminar =
+                    (DataGridViewCheckBoxCell)datosListar.Rows[e.RowIndex].Cells["Eliminar"];
+
+                ChEliminar.Value = !(Convert.ToBoolean(ChEliminar.Value));
             }
         }
     }
