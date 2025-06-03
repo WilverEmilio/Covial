@@ -13,7 +13,7 @@ namespace DataAccess
 
         public ConnectionToMySQL()
         {
-            connectionString = "Server=localhost;Database=sistema_gestion_proyectos;Uid=root;Pwd=123456789;";
+            connectionString = "Server=localhost;Database=sistema_gestion_proyectos;Uid=root;Pwd=123456789";
         }
 
         protected MySqlConnection GetConnection()

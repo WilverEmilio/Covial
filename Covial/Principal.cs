@@ -61,8 +61,6 @@ namespace Presentation
         private void Principal_Load(object sender, EventArgs e)
         {
             GestionanUsuarios();
-
-            this.label1.Text = "Rol: " + this.rol;
         }
 
         private void contratistasToolStripMenuItem_Click(object sender, EventArgs e)

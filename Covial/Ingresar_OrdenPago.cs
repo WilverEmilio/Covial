@@ -7,11 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
 using System.IO;
 using System.Diagnostics;
 using Domain;
+using iText.IO.Font.Constants;
+using iText.Kernel.Font;
+using iText.Layout.Properties;
+using iText.Kernel.Geom;
 
 namespace Presentation
 {
@@ -313,7 +318,7 @@ namespace Presentation
                 lblTitulo.Font = new System.Drawing.Font("Arial", 16, FontStyle.Bold);
                 lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
                 lblTitulo.Size = new Size(760, 40);
-                lblTitulo.Location = new Point(20, 20);
+                lblTitulo.Location = new System.Drawing.Point(20, 20);
                 panelInfo.Controls.Add(lblTitulo);
 
                 // Fecha
@@ -321,7 +326,7 @@ namespace Presentation
                 lblFecha.Text = "Fecha de Emisión: " + fechaActual;
                 lblFecha.Font = new System.Drawing.Font("Arial", 10);
                 lblFecha.Size = new Size(760, 20);
-                lblFecha.Location = new Point(20, 70);
+                lblFecha.Location = new System.Drawing.Point(20, 70);
                 lblFecha.TextAlign = ContentAlignment.MiddleRight;
                 panelInfo.Controls.Add(lblFecha);
 
@@ -331,7 +336,7 @@ namespace Presentation
                 lblSeparador1.BorderStyle = BorderStyle.Fixed3D;
                 lblSeparador1.Height = 2;
                 lblSeparador1.Width = 760;
-                lblSeparador1.Location = new Point(20, 100);
+                lblSeparador1.Location = new System.Drawing.Point(20, 100);
                 panelInfo.Controls.Add(lblSeparador1);
 
                 // Información del Proyecto
@@ -339,49 +344,49 @@ namespace Presentation
                 lblProyectoTitulo.Text = "INFORMACIÓN DEL PROYECTO";
                 lblProyectoTitulo.Font = new System.Drawing.Font("Arial", 12, FontStyle.Bold);
                 lblProyectoTitulo.Size = new Size(760, 25);
-                lblProyectoTitulo.Location = new Point(20, 110);
+                lblProyectoTitulo.Location = new System.Drawing.Point(20, 110);
                 panelInfo.Controls.Add(lblProyectoTitulo);
 
                 Label lblProyectoID = new Label();
                 lblProyectoID.Text = "ID Proyecto: " + idProyecto;
                 lblProyectoID.Font = new System.Drawing.Font("Arial", 10);
                 lblProyectoID.Size = new Size(760, 20);
-                lblProyectoID.Location = new Point(40, 140);
+                lblProyectoID.Location = new System.Drawing.Point(40, 140);
                 panelInfo.Controls.Add(lblProyectoID);
 
                 Label lblProyectoNombre = new Label();
                 lblProyectoNombre.Text = "Nombre: " + proyectoNombre;
                 lblProyectoNombre.Font = new System.Drawing.Font("Arial", 10);
                 lblProyectoNombre.Size = new Size(760, 20);
-                lblProyectoNombre.Location = new Point(40, 160);
+                lblProyectoNombre.Location = new System.Drawing.Point(40, 160);
                 panelInfo.Controls.Add(lblProyectoNombre);
 
                 Label lblProyectoDesc = new Label();
                 lblProyectoDesc.Text = "Descripción: " + proyectoDescripcion;
                 lblProyectoDesc.Font = new System.Drawing.Font("Arial", 10);
                 lblProyectoDesc.Size = new Size(760, 20);
-                lblProyectoDesc.Location = new Point(40, 180);
+                lblProyectoDesc.Location = new System.Drawing.Point(40, 180);
                 panelInfo.Controls.Add(lblProyectoDesc);
 
                 Label lblUbicacion = new Label();
                 lblUbicacion.Text = "Ubicación: " + ubicacion;
                 lblUbicacion.Font = new System.Drawing.Font("Arial", 10);
                 lblUbicacion.Size = new Size(760, 20);
-                lblUbicacion.Location = new Point(40, 200);
+                lblUbicacion.Location = new System.Drawing.Point(40, 200);
                 panelInfo.Controls.Add(lblUbicacion);
 
                 Label lblCantEst = new Label();
                 lblCantEst.Text = "Cantidad Estimada: " + cantidadEstimada;
                 lblCantEst.Font = new System.Drawing.Font("Arial", 10);
                 lblCantEst.Size = new Size(360, 20);
-                lblCantEst.Location = new Point(40, 220);
+                lblCantEst.Location = new System.Drawing.Point(40, 220);
                 panelInfo.Controls.Add(lblCantEst);
 
                 Label lblPrecioUnit = new Label();
                 lblPrecioUnit.Text = "Precio Unitario: $" + precioUnitario;
                 lblPrecioUnit.Font = new System.Drawing.Font("Arial", 10);
                 lblPrecioUnit.Size = new Size(360, 20);
-                lblPrecioUnit.Location = new Point(400, 220);
+                lblPrecioUnit.Location = new System.Drawing.Point(400, 220);
                 panelInfo.Controls.Add(lblPrecioUnit);
 
                 // Separador
@@ -390,7 +395,7 @@ namespace Presentation
                 lblSeparador2.BorderStyle = BorderStyle.Fixed3D;
                 lblSeparador2.Height = 2;
                 lblSeparador2.Width = 760;
-                lblSeparador2.Location = new Point(20, 250);
+                lblSeparador2.Location = new System.Drawing.Point(20, 250);
                 panelInfo.Controls.Add(lblSeparador2);
 
                 // Información del Avance
@@ -398,28 +403,28 @@ namespace Presentation
                 lblAvanceTitulo.Text = "INFORMACIÓN DE AVANCE";
                 lblAvanceTitulo.Font = new System.Drawing.Font("Arial", 12, FontStyle.Bold);
                 lblAvanceTitulo.Size = new Size(760, 25);
-                lblAvanceTitulo.Location = new Point(20, 260);
+                lblAvanceTitulo.Location = new System.Drawing.Point(20, 260);
                 panelInfo.Controls.Add(lblAvanceTitulo);
 
                 Label lblAvanceID = new Label();
                 lblAvanceID.Text = "ID Avance: " + idAvance;
                 lblAvanceID.Font = new System.Drawing.Font("Arial", 10);
                 lblAvanceID.Size = new Size(760, 20);
-                lblAvanceID.Location = new Point(40, 290);
+                lblAvanceID.Location = new System.Drawing.Point(40, 290);
                 panelInfo.Controls.Add(lblAvanceID);
 
                 Label lblCantReport = new Label();
                 lblCantReport.Text = "Cantidad Reportada: " + cantidadReportada;
                 lblCantReport.Font = new System.Drawing.Font("Arial", 10);
                 lblCantReport.Size = new Size(760, 20);
-                lblCantReport.Location = new Point(40, 310);
+                lblCantReport.Location = new System.Drawing.Point(40, 310);
                 panelInfo.Controls.Add(lblCantReport);
 
                 Label lblDescAvance = new Label();
                 lblDescAvance.Text = "Descripción del Avance: " + descripcionAvance;
                 lblDescAvance.Font = new System.Drawing.Font("Arial", 10);
                 lblDescAvance.Size = new Size(760, 20);
-                lblDescAvance.Location = new Point(40, 330);
+                lblDescAvance.Location = new System.Drawing.Point(40, 330);
                 panelInfo.Controls.Add(lblDescAvance);
 
                 // Separador
@@ -428,7 +433,7 @@ namespace Presentation
                 lblSeparador3.BorderStyle = BorderStyle.Fixed3D;
                 lblSeparador3.Height = 2;
                 lblSeparador3.Width = 760;
-                lblSeparador3.Location = new Point(20, 360);
+                lblSeparador3.Location = new System.Drawing.Point(20, 360);
                 panelInfo.Controls.Add(lblSeparador3);
 
                 // Detalles del Cálculo
@@ -436,42 +441,42 @@ namespace Presentation
                 lblCalculoTitulo.Text = "DETALLES DEL CÁLCULO";
                 lblCalculoTitulo.Font = new System.Drawing.Font("Arial", 12, FontStyle.Bold);
                 lblCalculoTitulo.Size = new Size(760, 25);
-                lblCalculoTitulo.Location = new Point(20, 370);
+                lblCalculoTitulo.Location = new System.Drawing.Point(20, 370);
                 panelInfo.Controls.Add(lblCalculoTitulo);
 
                 Label lblMontoBase = new Label();
                 lblMontoBase.Text = "Monto Base: $" + montoBase.ToString("N2");
                 lblMontoBase.Font = new System.Drawing.Font("Arial", 10);
                 lblMontoBase.Size = new Size(760, 20);
-                lblMontoBase.Location = new Point(40, 400);
+                lblMontoBase.Location = new System.Drawing.Point(40, 400);
                 panelInfo.Controls.Add(lblMontoBase);
 
                 Label lblPorcentajeImp = new Label();
                 lblPorcentajeImp.Text = "Porcentaje de Impuesto: " + impuesto + "%";
                 lblPorcentajeImp.Font = new System.Drawing.Font("Arial", 10);
                 lblPorcentajeImp.Size = new Size(360, 20);
-                lblPorcentajeImp.Location = new Point(40, 420);
+                lblPorcentajeImp.Location = new System.Drawing.Point(40, 420);
                 panelInfo.Controls.Add(lblPorcentajeImp);
 
                 Label lblMontoImp = new Label();
                 lblMontoImp.Text = "Monto Impuesto: $" + montoImpuesto.ToString("N2");
                 lblMontoImp.Font = new System.Drawing.Font("Arial", 10);
                 lblMontoImp.Size = new Size(360, 20);
-                lblMontoImp.Location = new Point(400, 420);
+                lblMontoImp.Location = new System.Drawing.Point(400, 420);
                 panelInfo.Controls.Add(lblMontoImp);
 
                 Label lblPorcentajeRet = new Label();
                 lblPorcentajeRet.Text = "Porcentaje de Retención: " + retencion + "%";
                 lblPorcentajeRet.Font = new System.Drawing.Font("Arial", 10);
                 lblPorcentajeRet.Size = new Size(360, 20);
-                lblPorcentajeRet.Location = new Point(40, 440);
+                lblPorcentajeRet.Location = new System.Drawing.Point(40, 440);
                 panelInfo.Controls.Add(lblPorcentajeRet);
 
                 Label lblMontoRet = new Label();
                 lblMontoRet.Text = "Monto Retención: $" + montoRetencion.ToString("N2");
                 lblMontoRet.Font = new System.Drawing.Font("Arial", 10);
                 lblMontoRet.Size = new Size(360, 20);
-                lblMontoRet.Location = new Point(400, 440);
+                lblMontoRet.Location = new System.Drawing.Point(400, 440);
                 panelInfo.Controls.Add(lblMontoRet);
 
                 // Separador
@@ -480,7 +485,7 @@ namespace Presentation
                 lblSeparador4.BorderStyle = BorderStyle.Fixed3D;
                 lblSeparador4.Height = 2;
                 lblSeparador4.Width = 760;
-                lblSeparador4.Location = new Point(20, 470);
+                lblSeparador4.Location = new System.Drawing.Point(20, 470);
                 panelInfo.Controls.Add(lblSeparador4);
 
                 // Monto Final
@@ -488,7 +493,7 @@ namespace Presentation
                 lblMontoFinalTitulo.Text = "MONTO FINAL A PAGAR";
                 lblMontoFinalTitulo.Font = new System.Drawing.Font("Arial", 14, FontStyle.Bold);
                 lblMontoFinalTitulo.Size = new Size(760, 30);
-                lblMontoFinalTitulo.Location = new Point(20, 480);
+                lblMontoFinalTitulo.Location = new System.Drawing.Point(20, 480);
                 lblMontoFinalTitulo.TextAlign = ContentAlignment.MiddleCenter;
                 panelInfo.Controls.Add(lblMontoFinalTitulo);
 
@@ -496,7 +501,7 @@ namespace Presentation
                 lblMontoFinal.Text = "Q" + montoFinal.ToString("N2");
                 lblMontoFinal.Font = new System.Drawing.Font("Arial", 16, FontStyle.Bold);
                 lblMontoFinal.Size = new Size(760, 40);
-                lblMontoFinal.Location = new Point(20, 510);
+                lblMontoFinal.Location = new System.Drawing.Point(20, 510);
                 lblMontoFinal.TextAlign = ContentAlignment.MiddleCenter;
                 panelInfo.Controls.Add(lblMontoFinal);
 
@@ -505,21 +510,21 @@ namespace Presentation
                 lblNotasPie.Text = "Esta constancia no tiene validez fiscal. Solo es un documento informativo para control interno.";
                 lblNotasPie.Font = new System.Drawing.Font("Arial", 8, FontStyle.Italic);
                 lblNotasPie.Size = new Size(760, 20);
-                lblNotasPie.Location = new Point(20, 560);
+                lblNotasPie.Location = new System.Drawing.Point(20, 560);
                 lblNotasPie.TextAlign = ContentAlignment.MiddleCenter;
                 panelInfo.Controls.Add(lblNotasPie);
 
                 // Panel para botones
                 Panel panelBotones = new Panel();
                 panelBotones.Size = new Size(760, 50);
-                panelBotones.Location = new Point(20, 590);
+                panelBotones.Location = new System.Drawing.Point(20, 590);
                 panelInfo.Controls.Add(panelBotones);
 
                 // Botón para guardar como imagen
                 Button btnGuardarImagen = new Button();
                 btnGuardarImagen.Text = "Guardar como Imagen";
                 btnGuardarImagen.Size = new Size(150, 30);
-                btnGuardarImagen.Location = new Point(330, 10);
+                btnGuardarImagen.Location = new System.Drawing.Point(330, 10);
                 btnGuardarImagen.Click += (s, evt) =>
                 {
                     // Crear un diálogo para guardar archivo
@@ -561,7 +566,7 @@ namespace Presentation
                 Button btnGuardarPDF = new Button();
                 btnGuardarPDF.Text = "Guardar como PDF";
                 btnGuardarPDF.Size = new Size(150, 30);
-                btnGuardarPDF.Location = new Point(490, 10);
+                btnGuardarPDF.Location = new System.Drawing.Point(490, 10);
                 btnGuardarPDF.Click += (s, evt) =>
                 {
                     // Crear un diálogo para guardar archivo
@@ -579,60 +584,58 @@ namespace Presentation
 
                         try
                         {
-                            // Crear documento PDF
-                            Document pdfDoc = new Document(PageSize.A4, 50, 50, 60, 60);
-
                             using (FileStream stream = new FileStream(path, FileMode.Create))
                             {
-                                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
-                                pdfDoc.Open();
+                                // Crear PDF
+                                PdfWriter writer = new PdfWriter(stream);
+                                PdfDocument pdf = new PdfDocument(writer);
+                                Document document = new Document(pdf, PageSize.A4);
+                                document.SetMargins(60, 50, 60, 50);
 
-                                // Fuente personalizada
-                                var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18);
-                                var normalFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
+                                // Fuentes
+                                PdfFont titleFont = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
+                                PdfFont normalFont = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
 
                                 // Título
-                                Paragraph titulo = new Paragraph("CONSTANCIA DE PAGO", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16));
-                                titulo.Alignment = Element.ALIGN_CENTER;
-                                pdfDoc.Add(titulo);
+                                Paragraph titulo = new Paragraph("CONSTANCIA DE PAGO")
+                                    .SetFont(titleFont)
+                                    .SetFontSize(16)
+                                    .SetTextAlignment(TextAlignment.CENTER);
+                                document.Add(titulo);
 
-                                pdfDoc.Add(new Paragraph("Fecha de Emisión: " + fechaActual));
-                                pdfDoc.Add(new Paragraph("\nINFORMACIÓN DEL PROYECTO", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12)));
-                                pdfDoc.Add(new Paragraph("ID Proyecto: " + idProyecto));
-                                pdfDoc.Add(new Paragraph("Nombre: " + proyectoNombre));
-                                pdfDoc.Add(new Paragraph("Descripción: " + proyectoDescripcion));
-                                pdfDoc.Add(new Paragraph("Ubicación: " + ubicacion));
-                                pdfDoc.Add(new Paragraph("Cantidad Estimada: " + cantidadEstimada));
-                                pdfDoc.Add(new Paragraph("Precio Unitario: $" + precioUnitario));
+                                document.Add(new Paragraph("Fecha de Emisión: " + fechaActual).SetFont(normalFont));
 
-                                pdfDoc.Add(new Paragraph("\nINFORMACIÓN DE AVANCE", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12)));
-                                pdfDoc.Add(new Paragraph("ID Avance: " + idAvance));
-                                pdfDoc.Add(new Paragraph("Cantidad Reportada: " + cantidadReportada));
-                                pdfDoc.Add(new Paragraph("Descripción del Avance: " + descripcionAvance));
+                                document.Add(new Paragraph("\nINFORMACIÓN DEL PROYECTO").SetFont(titleFont).SetFontSize(12));
+                                document.Add(new Paragraph("ID Proyecto: " + idProyecto).SetFont(normalFont));
+                                document.Add(new Paragraph("Nombre: " + proyectoNombre).SetFont(normalFont));
+                                document.Add(new Paragraph("Descripción: " + proyectoDescripcion).SetFont(normalFont));
+                                document.Add(new Paragraph("Ubicación: " + ubicacion).SetFont(normalFont));
+                                document.Add(new Paragraph("Cantidad Estimada: " + cantidadEstimada).SetFont(normalFont));
+                                document.Add(new Paragraph("Precio Unitario: $" + precioUnitario).SetFont(normalFont));
 
-                                pdfDoc.Add(new Paragraph("\nDETALLES DEL CÁLCULO", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12)));
-                                pdfDoc.Add(new Paragraph("Monto Base: Q" + montoBase.ToString("N2")));
-                                pdfDoc.Add(new Paragraph("Porcentaje de Impuesto: " + impuesto + "%"));
-                                pdfDoc.Add(new Paragraph("Monto Impuesto: Q" + montoImpuesto.ToString("N2")));
-                                pdfDoc.Add(new Paragraph("Porcentaje de Retención: " + retencion + "%"));
-                                pdfDoc.Add(new Paragraph("Monto Retención: Q" + montoRetencion.ToString("N2")));
+                                document.Add(new Paragraph("\nINFORMACIÓN DE AVANCE").SetFont(titleFont).SetFontSize(12));
+                                document.Add(new Paragraph("ID Avance: " + idAvance).SetFont(normalFont));
+                                document.Add(new Paragraph("Cantidad Reportada: " + cantidadReportada).SetFont(normalFont));
+                                document.Add(new Paragraph("Descripción del Avance: " + descripcionAvance).SetFont(normalFont));
 
-                                pdfDoc.Add(new Paragraph("\nMONTO FINAL A PAGAR", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14)));
-                                pdfDoc.Add(new Paragraph("Q" + montoFinal.ToString("N2"), FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12)));
+                                document.Add(new Paragraph("\nDETALLES DEL CÁLCULO").SetFont(titleFont).SetFontSize(12));
+                                document.Add(new Paragraph("Monto Base: Q" + montoBase.ToString("N2")).SetFont(normalFont));
+                                document.Add(new Paragraph("Porcentaje de Impuesto: " + impuesto + "%").SetFont(normalFont));
+                                document.Add(new Paragraph("Monto Impuesto: Q" + montoImpuesto.ToString("N2")).SetFont(normalFont));
+                                document.Add(new Paragraph("Porcentaje de Retención: " + retencion + "%").SetFont(normalFont));
+                                document.Add(new Paragraph("Monto Retención: Q" + montoRetencion.ToString("N2")).SetFont(normalFont));
 
-                                pdfDoc.Close();
-                                stream.Close();
+                                document.Add(new Paragraph("\nMONTO FINAL A PAGAR").SetFont(titleFont).SetFontSize(14));
+                                document.Add(new Paragraph("Q" + montoFinal.ToString("N2"))
+                                    .SetFont(titleFont)
+                                    .SetFontSize(12));
+
+                                document.Close();
                             }
-
-                            // Mostrar mensaje de éxito
-                            MessageBox.Show("PDF generado correctamente en:\n" + path, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                            // Abrir el PDF automáticamente
-                            Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Ocurrió un error al generar el PDF:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Console.WriteLine("Error al generar el PDF: " + ex.Message);
                         }
                     }
                 };
